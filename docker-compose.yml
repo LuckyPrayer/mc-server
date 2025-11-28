@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  minecraft:
+    build: .
+    container_name: minecraft-server
+    restart: unless-stopped
+    
+    ports:
+      - "25565:25565"  # Minecraft server port
+      - "25575:25575"  # RCON port (optional)
+    
+    environment:
+      # Accept EULA
+      EULA: "TRUE"
+      
+      # Server Type (VANILLA, PAPER, SPIGOT, FORGE, FABRIC, etc.)
+      TYPE: "PAPER"
+      VERSION: "LATEST"
+      
+      # Memory settings
+      MEMORY: "2G"
+      MAX_MEMORY: "4G"
+      
+      # Server settings
+      SERVER_NAME: "My Minecraft Server"
+      MOTD: "Welcome to my Minecraft server!"
+      DIFFICULTY: "normal"
+      MODE: "survival"
+      MAX_PLAYERS: "20"
+      ONLINE_MODE: "true"
+      PVP: "true"
+      VIEW_DISTANCE: "10"
+      
+      # World settings
+      LEVEL: "world"
+      SEED: ""
+      ALLOW_NETHER: "true"
+      ALLOW_FLIGHT: "false"
+      ENABLE_COMMAND_BLOCK: "true"
+      
+      # Performance settings
+      MAX_TICK_TIME: "60000"
+      SPAWN_PROTECTION: "16"
+      
+      # RCON (Remote Console) - optional
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: "minecraft"
+      RCON_PORT: "25575"
+      
+      # Automatically copy datapacks, plugins, and resourcepacks
+      COPY_MODS_DEST: "/data/mods"
+      SYNC_SKIP_NEWER_IN_DESTINATION: "false"
+    
+    volumes:
+      # Persistent server data
+      - ./data:/data
+      
+      # Datapacks - will be copied to world/datapacks
+      - ./datapacks:/datapacks:ro
+      
+      # Plugins - for Paper/Spigot servers
+      - ./plugins:/plugins:ro
+      
+      # Resource packs - server-side resource packs
+      - ./resourcepacks:/resourcepacks:ro
+      
+      # Additional configuration files
+      - ./config:/config:ro
+      
+      # Logs
+      - ./logs:/data/logs
+    
+    stdin_open: true
+    tty: true
+    
+    networks:
+      - minecraft-network
+
+networks:
+  minecraft-network:
+    driver: bridge

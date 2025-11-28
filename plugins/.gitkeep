@@ -1,0 +1,3 @@
+# Place your plugins (.jar files) in this directory
+# They will be automatically copied to the server's plugins folder
+# Note: Plugins only work with Paper, Spigot, or Bukkit server types
