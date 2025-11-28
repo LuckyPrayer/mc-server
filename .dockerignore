@@ -1,0 +1,44 @@
+# Exclude server data and logs from Docker builds
+data/
+logs/
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Documentation (optional - include if you want docs in image)
+# README.md
+# DOCKER_PUBLISHING.md
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.backup
+*.bak
+backups/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Docker Compose override files (for local dev)
+docker-compose.override.yml
+docker-compose.dev.yml
+
+# CI/CD files (optional)
+.github/
+
+# Build artifacts
+*.tar
+*.tar.gz

@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  minecraft-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: minecraft-server-dev
+    restart: unless-stopped
+    
+    ports:
+      - "25565:25565"  # Minecraft server port
+      - "25575:25575"  # RCON port
+    
+    environment:
+      # Accept EULA
+      EULA: "TRUE"
+      
+      # Server Type - Development
+      TYPE: "PAPER"
+      VERSION: "LATEST"
+      
+      # Memory settings - Lower for dev
+      MEMORY: "1G"
+      MAX_MEMORY: "2G"
+      
+      # Server settings - Development friendly
+      SERVER_NAME: "[DEV] Minecraft Server"
+      MOTD: "§e[DEVELOPMENT] §fWelcome to the dev server!"
+      DIFFICULTY: "peaceful"
+      MODE: "creative"
+      MAX_PLAYERS: "10"
+      ONLINE_MODE: "false"  # Allow cracked clients in dev
+      PVP: "false"
+      VIEW_DISTANCE: "8"
+      
+      # World settings - Fast iteration
+      LEVEL: "world-dev"
+      SEED: ""
+      ALLOW_NETHER: "true"
+      ALLOW_FLIGHT: "true"
+      ENABLE_COMMAND_BLOCK: "true"
+      SPAWN_PROTECTION: "0"
+      
+      # Performance settings - Relaxed for dev
+      MAX_TICK_TIME: "-1"  # Disable watchdog
+      SPAWN_MONSTERS: "false"
+      SPAWN_ANIMALS: "true"
+      
+      # RCON - Easy access for dev
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: "devpass"
+      RCON_PORT: "25575"
+      
+      # Development settings
+      DEBUG: "true"
+      LOG_LEVEL: "DEBUG"
+      SYNC_SKIP_NEWER_IN_DESTINATION: "false"
+      
+      # Auto-pause when no players (saves resources)
+      ENABLE_AUTOPAUSE: "true"
+      AUTOPAUSE_TIMEOUT_EST: "60"
+      AUTOPAUSE_TIMEOUT_INIT: "60"
+    
+    volumes:
+      # Separate dev data
+      - ./data-dev:/data
+      
+      # Datapacks, plugins, resourcepacks
+      - ./datapacks:/datapacks:ro
+      - ./plugins:/plugins:ro
+      - ./resourcepacks:/resourcepacks:ro
+      - ./config:/config:ro
+      
+      # Dev logs
+      - ./logs-dev:/data/logs
+    
+    stdin_open: true
+    tty: true
+    
+    networks:
+      - minecraft-dev-network
+    
+    labels:
+      - "environment=development"
+      - "project=minecraft-server"
+
+networks:
+  minecraft-dev-network:
+    driver: bridge
+    name: minecraft-dev-network

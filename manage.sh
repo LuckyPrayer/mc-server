@@ -101,6 +101,12 @@ update_server() {
     print_success "Server updated and restarted"
 }
 
+build_image() {
+    print_info "Building Docker image..."
+    docker-compose build
+    print_success "Image built successfully"
+}
+
 show_usage() {
     cat << EOF
 Minecraft Server Management Script
@@ -116,6 +122,7 @@ Commands:
     console     Access server console (RCON)
     backup      Create a backup of the server data
     update      Update and restart the server
+    build       Build the Docker image
     help        Show this help message
 
 Examples:
@@ -153,6 +160,9 @@ case "${1:-}" in
         ;;
     update)
         update_server
+        ;;
+    build)
+        build_image
         ;;
     help|--help|-h)
         show_usage

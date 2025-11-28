@@ -1,0 +1,129 @@
+version: '3.8'
+
+services:
+  minecraft-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: minecraft-server-prod
+    restart: always
+    
+    ports:
+      - "25565:25565"  # Minecraft server port
+      - "25575:25575"  # RCON port
+    
+    environment:
+      # Accept EULA
+      EULA: "TRUE"
+      
+      # Server Type - Production
+      TYPE: "PAPER"
+      VERSION: "LATEST"
+      
+      # Memory settings - Production scale
+      MEMORY: "4G"
+      MAX_MEMORY: "8G"
+      
+      # Server settings - Production
+      SERVER_NAME: "Minecraft Server"
+      MOTD: "§6Welcome to our Minecraft server!"
+      DIFFICULTY: "hard"
+      MODE: "survival"
+      MAX_PLAYERS: "50"
+      ONLINE_MODE: "true"  # Require authentication
+      PVP: "true"
+      VIEW_DISTANCE: "12"
+      
+      # World settings
+      LEVEL: "world"
+      SEED: ""
+      ALLOW_NETHER: "true"
+      ALLOW_FLIGHT: "false"
+      ENABLE_COMMAND_BLOCK: "false"
+      SPAWN_PROTECTION: "16"
+      
+      # Performance settings - Production tuned
+      MAX_TICK_TIME: "60000"
+      SPAWN_MONSTERS: "true"
+      SPAWN_ANIMALS: "true"
+      
+      # RCON - Secured
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: "${RCON_PASSWORD:-changeme}"
+      RCON_PORT: "25575"
+      
+      # Production settings
+      ENFORCE_WHITELIST: "true"
+      WHITELIST: ""
+      RATE_LIMIT: "0"
+      
+      # Backup settings
+      ENABLE_ROLLING_LOGS: "true"
+      
+      # JVM optimization for production
+      JVM_OPTS: >-
+        -XX:+UseG1GC
+        -XX:+ParallelRefProcEnabled
+        -XX:MaxGCPauseMillis=200
+        -XX:+UnlockExperimentalVMOptions
+        -XX:+DisableExplicitGC
+        -XX:+AlwaysPreTouch
+        -XX:G1NewSizePercent=30
+        -XX:G1MaxNewSizePercent=40
+        -XX:G1HeapRegionSize=8M
+        -XX:G1ReservePercent=20
+        -XX:G1HeapWastePercent=5
+        -XX:G1MixedGCCountTarget=4
+        -XX:InitiatingHeapOccupancyPercent=15
+        -XX:G1MixedGCLiveThresholdPercent=90
+        -XX:G1RSetUpdatingPauseTimePercent=5
+        -XX:SurvivorRatio=32
+        -XX:+PerfDisableSharedMem
+        -XX:MaxTenuringThreshold=1
+    
+    volumes:
+      # Production data
+      - ./data-prod:/data
+      
+      # Datapacks, plugins, resourcepacks
+      - ./datapacks:/datapacks:ro
+      - ./plugins:/plugins:ro
+      - ./resourcepacks:/resourcepacks:ro
+      - ./config:/config:ro
+      
+      # Production logs
+      - ./logs-prod:/data/logs
+    
+    stdin_open: true
+    tty: true
+    
+    # Resource limits for production
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+        reservations:
+          cpus: '2'
+          memory: 4G
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "mc-health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    networks:
+      - minecraft-prod-network
+    
+    labels:
+      - "environment=production"
+      - "project=minecraft-server"
+      - "backup=enabled"
+
+networks:
+  minecraft-prod-network:
+    driver: bridge
+    name: minecraft-prod-network

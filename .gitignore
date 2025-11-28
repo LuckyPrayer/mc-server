@@ -1,6 +1,13 @@
 # Minecraft Server Data
 data/
+data-dev/
+data-prod/
 logs/
+logs-dev/
+logs-prod/
+
+# Environment files
+.env
 
 # Docker volumes
 *.tar

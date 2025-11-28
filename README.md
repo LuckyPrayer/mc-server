@@ -20,21 +20,50 @@ A Docker-based Minecraft server setup with easy management of datapacks, plugins
 
 ```
 mc-server/
-├── docker-compose.yml      # Main configuration file
-├── Dockerfile              # Docker image definition
-├── datapacks/             # Place your datapacks here (.zip files)
-├── plugins/               # Place your plugins here (.jar files)
-├── resourcepacks/         # Place your resource packs here (.zip files)
-├── config/                # Additional config files (ops.json, whitelist.json, etc.)
-├── data/                  # Server data (generated, persistent)
-└── logs/                  # Server logs (generated)
+├── docker-compose.yml          # Base configuration file
+├── docker-compose.dev.yml      # Development configuration
+├── docker-compose.prod.yml     # Production configuration
+├── Dockerfile                  # Base Docker image
+├── Dockerfile.dev              # Development Docker image
+├── Dockerfile.prod             # Production Docker image
+├── build.sh                    # Build and push helper script
+├── manage.sh                   # Server management script
+├── datapacks/                  # Place your datapacks here (.zip files)
+├── plugins/                    # Place your plugins here (.jar files)
+├── resourcepacks/              # Place your resource packs here (.zip files)
+├── config/                     # Additional config files
+├── data-dev/                   # Development server data (generated)
+├── data-prod/                  # Production server data (generated)
+├── logs-dev/                   # Development server logs (generated)
+└── logs-prod/                  # Production server logs (generated)
 ```
 
 ## Quick Start
 
-### 1. Configure Your Server
+### 1. Choose Your Environment
 
-Edit `docker-compose.yml` to customize your server settings:
+This project supports two environments:
+- **Development** (`docker-compose.dev.yml`): Lower resources, creative mode, offline mode, debug logging
+- **Production** (`docker-compose.prod.yml`): High performance, survival mode, online mode, optimized
+
+### 2. Configure Your Server
+
+**For Development:**
+Edit `docker-compose.dev.yml` to customize settings:
+
+```yaml
+environment:
+  TYPE: "PAPER"
+  VERSION: "LATEST"
+  MEMORY: "1G"
+  MAX_MEMORY: "2G"
+  MODE: "creative"
+  DIFFICULTY: "peaceful"
+  ONLINE_MODE: "false"
+```
+
+**For Production:**
+Edit `docker-compose.prod.yml` to customize settings:
 
 ```yaml
 environment:
@@ -49,24 +78,37 @@ environment:
   # ... more settings available
 ```
 
-### 2. Add Your Content
+### 3. Add Your Content
 
 - **Datapacks**: Copy `.zip` datapack files to `datapacks/`
 - **Plugins**: Copy `.jar` plugin files to `plugins/` (Paper/Spigot only)
 - **Resource Packs**: Copy `.zip` resource pack files to `resourcepacks/`
 - **Config Files**: Add ops.json, whitelist.json, etc. to `config/`
 
-### 3. Start the Server
+### 4. Start the Server
 
+**Development:**
 ```bash
-# Build and start the server
-docker-compose up -d
+# Build and start development server
+docker-compose -f docker-compose.dev.yml up -d
 
 # View logs
-docker-compose logs -f
+docker-compose -f docker-compose.dev.yml logs -f
 
 # Stop the server
-docker-compose down
+docker-compose -f docker-compose.dev.yml down
+```
+
+**Production:**
+```bash
+# Build and start production server
+docker-compose -f docker-compose.prod.yml up -d
+
+# View logs
+docker-compose -f docker-compose.prod.yml logs -f
+
+# Stop the server
+docker-compose -f docker-compose.prod.yml down
 ```
 
 ## Common Commands
@@ -233,6 +275,49 @@ tar -czf backup-$(date +%Y%m%d-%H%M%S).tar.gz data/
 
 # Resume saving
 docker-compose exec minecraft rcon-cli save-on
+```
+
+## Building and Publishing
+
+### Development and Production Builds
+
+This project supports separate development and production environments with different configurations:
+
+**Development Environment:**
+```bash
+# Build for development
+./build.sh --env dev
+
+# Push to Harbor dev registry
+./build.sh --env dev --push harbor
+```
+
+**Production Environment:**
+```bash
+# Build for production
+./build.sh --env prod
+
+# Push to Harbor prod registry
+./build.sh --env prod --push harbor --version 1.0.0
+```
+
+See [HARBOR_SETUP.md](HARBOR_SETUP.md) for complete Harbor registry setup and usage instructions.
+
+### Alternative Registries
+
+Want to publish to Docker Hub or GitHub Container Registry? See [DOCKER_PUBLISHING.md](DOCKER_PUBLISHING.md) for detailed instructions on:
+- Building and pushing to Docker Hub
+- Publishing to GitHub Container Registry
+- Multi-platform builds (ARM64 + AMD64)
+- CI/CD with GitHub Actions
+
+Quick start:
+```bash
+# Build and push to Docker Hub
+./build.sh --env prod --push dockerhub --username YOUR_USERNAME
+
+# Build and push to GitHub Container Registry
+./build.sh --env prod --push ghcr --username YOUR_GITHUB_USERNAME
 ```
 
 ## Resources
