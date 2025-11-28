@@ -17,8 +17,8 @@ services:
       EULA: "TRUE"
       
       # Server Type - Development
-      TYPE: "PAPER"
-      VERSION: "LATEST"
+  TYPE: "SPIGOT"
+  VERSION: "1.21.5"
       
       # Memory settings - Lower for dev
       MEMORY: "1G"
@@ -66,11 +66,13 @@ services:
       # Separate dev data
       - ./data-dev:/data
       
-      # Datapacks, plugins, resourcepacks
-      - ./datapacks:/datapacks:ro
-      - ./plugins:/plugins:ro
-      - ./resourcepacks:/resourcepacks:ro
-      - ./config:/config:ro
+  # Datapacks, plugins, resourcepacks
+  - ./datapacks:/datapacks:ro
+  - ./plugins:/plugins:ro
+  - ./resourcepacks:/resourcepacks:ro
+  - ./config:/config:ro
+  # Plugin configs for BlueMap, DiscordSRV, Geyser, Floodgate
+  - ./plugin-configs:/data/plugins:ro
       
       # Dev logs
       - ./logs-dev:/data/logs

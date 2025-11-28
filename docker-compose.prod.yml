@@ -17,8 +17,8 @@ services:
       EULA: "TRUE"
       
       # Server Type - Production
-      TYPE: "PAPER"
-      VERSION: "LATEST"
+  TYPE: "SPIGOT"
+  VERSION: "1.21.5"
       
       # Memory settings - Production scale
       MEMORY: "4G"
@@ -85,11 +85,13 @@ services:
       # Production data
       - ./data-prod:/data
       
-      # Datapacks, plugins, resourcepacks
-      - ./datapacks:/datapacks:ro
-      - ./plugins:/plugins:ro
-      - ./resourcepacks:/resourcepacks:ro
-      - ./config:/config:ro
+  # Datapacks, plugins, resourcepacks
+  - ./datapacks:/datapacks:ro
+  - ./plugins:/plugins:ro
+  - ./resourcepacks:/resourcepacks:ro
+  - ./config:/config:ro
+  # Plugin configs for BlueMap, DiscordSRV, Geyser, Floodgate
+  - ./plugin-configs:/data/plugins:ro
       
       # Production logs
       - ./logs-prod:/data/logs

@@ -2,11 +2,11 @@ FROM itzg/minecraft-server:latest
 
 # Development Environment Configuration
 ENV EULA=TRUE \
-    TYPE=PAPER \
-    VERSION=LATEST \
+    TYPE=SPIGOT \
+    VERSION=1.21.5 \
     MEMORY=1G \
     MAX_MEMORY=2G \
-    SERVER_NAME="[DEV] Minecraft Server" \
+    SERVER_NAME="[DEV] Spigot 1.21.5" \
     DIFFICULTY=peaceful \
     MODE=creative \
     ALLOW_NETHER=true \
@@ -27,18 +27,25 @@ ENV MAX_TICK_TIME=-1 \
     SPAWN_ANIMALS=true \
     ALLOW_FLIGHT=true
 
-# Copy datapacks, plugins, and resourcepacks from local directories
 COPY --chown=minecraft:minecraft datapacks/ /datapacks/
 COPY --chown=minecraft:minecraft plugins/ /plugins/
 COPY --chown=minecraft:minecraft resourcepacks/ /resourcepacks/
 COPY --chown=minecraft:minecraft config/ /config/
+COPY --chown=minecraft:minecraft plugin-configs/ /data/plugins/
 
-# Development labels
 LABEL environment="development" \
-      maintainer="dev-team" \
-      description="Minecraft Server - Development Build"
+    maintainer="dev-team" \
+    description="Spigot 1.21.5 - Development Build"
 
 # Expose Minecraft server port and RCON
 EXPOSE 25565 25575
+
+
+# --- Server Icon Logic ---
+# Copy local server-icon.png if present
+ARG SERVER_ICON_URL=""
+COPY scripts/add-server-icon.sh /tmp/add-server-icon.sh
+COPY server-icon.png /tmp/server-icon.png
+RUN bash /tmp/add-server-icon.sh "$SERVER_ICON_URL"
 
 # The base image handles the rest of the setup

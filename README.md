@@ -329,3 +329,20 @@ Quick start:
 ## License
 
 This setup is provided as-is. Minecraft is © Mojang Studios.
+
+## Server Icon Support
+
+You can set a custom server icon in two ways:
+
+1. **Local file:**
+   - Place a `server-icon.png` (64x64 PNG) in the project root before building.
+   - The icon will be copied into the container and used by the server.
+
+2. **Download from URL:**
+   - Pass a build argument `SERVER_ICON_URL` to the build command:
+     ```bash
+     docker build --build-arg SERVER_ICON_URL="https://example.com/server-icon.png" -f Dockerfile.dev -t my-mc-server:dev .
+     ```
+   - The icon will be downloaded and used as the server icon.
+
+If neither is provided, the server will use the default icon.
