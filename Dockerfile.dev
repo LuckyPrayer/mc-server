@@ -17,9 +17,9 @@ ENV EULA=TRUE \
     VIEW_DISTANCE=8 \
     SPAWN_PROTECTION=0 \
     ENABLE_RCON=true \
-    RCON_PASSWORD=devpass \
     DEBUG=true \
     LOG_LEVEL=DEBUG
+# Note: RCON_PASSWORD defaults to 'devpass' in docker-compose.dev.yml for convenience
 
 # Development-specific settings
 ENV MAX_TICK_TIME=-1 \
@@ -45,7 +45,7 @@ EXPOSE 25565 25575
 # Copy local server-icon.png if present
 ARG SERVER_ICON_URL=""
 COPY scripts/add-server-icon.sh /tmp/add-server-icon.sh
-COPY server-icon.png /tmp/server-icon.png
+COPY --chown=minecraft:minecraft server-icon.png* /tmp/
 RUN bash /tmp/add-server-icon.sh "$SERVER_ICON_URL"
 
 # The base image handles the rest of the setup

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   minecraft-prod:
     build:
@@ -17,8 +15,8 @@ services:
       EULA: "TRUE"
       
       # Server Type - Production
-  TYPE: "SPIGOT"
-  VERSION: "1.21.5"
+      TYPE: "SPIGOT"
+      VERSION: "1.21.5"
       
       # Memory settings - Production scale
       MEMORY: "4G"
@@ -47,9 +45,9 @@ services:
       SPAWN_MONSTERS: "true"
       SPAWN_ANIMALS: "true"
       
-      # RCON - Secured
+      # RCON - Secured (REQUIRED: Set RCON_PASSWORD in .env file)
       ENABLE_RCON: "true"
-      RCON_PASSWORD: "${RCON_PASSWORD:-changeme}"
+      RCON_PASSWORD: "${RCON_PASSWORD:?RCON_PASSWORD must be set in .env file for production}"
       RCON_PORT: "25575"
       
       # Production settings
@@ -85,13 +83,14 @@ services:
       # Production data
       - ./data-prod:/data
       
-  # Datapacks, plugins, resourcepacks
-  - ./datapacks:/datapacks:ro
-  - ./plugins:/plugins:ro
-  - ./resourcepacks:/resourcepacks:ro
-  - ./config:/config:ro
-  # Plugin configs for BlueMap, DiscordSRV, Geyser, Floodgate
-  - ./plugin-configs:/data/plugins:ro
+      # Datapacks, plugins, resourcepacks
+      - ./datapacks:/datapacks:ro
+      - ./plugins:/plugins:ro
+      - ./resourcepacks:/resourcepacks:ro
+      - ./config:/config:ro
+      # Plugin configs for BlueMap, DiscordSRV, Geyser, Floodgate
+      # Note: Read-write to allow plugins to generate and update their configs
+      - ./plugin-configs:/data/plugins
       
       # Production logs
       - ./logs-prod:/data/logs

@@ -39,27 +39,59 @@ check_docker() {
     fi
 }
 
+get_docker_compose_cmd() {
+    if command -v docker-compose &> /dev/null; then
+        echo "docker-compose"
+    elif docker compose version &> /dev/null 2>&1; then
+        echo "docker compose"
+    else
+        print_error "Docker Compose is not available"
+        exit 1
+    fi
+}
+
+check_env_file() {
+    local env_required=$1
+    if [ "$env_required" = "true" ] && [ ! -f .env ]; then
+        print_warning ".env file not found"
+        print_info "For production use, copy .env.example to .env and configure it:"
+        print_info "  cp .env.example .env"
+        print_info "  # Edit .env and set RCON_PASSWORD"
+        echo ""
+        read -p "Continue anyway? (y/n): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            exit 1
+        fi
+    fi
+}
+
 start_server() {
+    local compose_cmd=$(get_docker_compose_cmd)
+    check_env_file "false"
     print_info "Starting Minecraft server..."
-    docker-compose up -d
+    $compose_cmd up -d
     print_success "Server started! Use './manage.sh logs' to view logs"
 }
 
 stop_server() {
+    local compose_cmd=$(get_docker_compose_cmd)
     print_info "Stopping Minecraft server..."
-    docker-compose down
+    $compose_cmd down
     print_success "Server stopped"
 }
 
 restart_server() {
+    local compose_cmd=$(get_docker_compose_cmd)
     print_info "Restarting Minecraft server..."
-    docker-compose restart
+    $compose_cmd restart
     print_success "Server restarted"
 }
 
 view_logs() {
+    local compose_cmd=$(get_docker_compose_cmd)
     print_info "Viewing server logs (Ctrl+C to exit)..."
-    docker-compose logs -f minecraft
+    $compose_cmd logs -f minecraft
 }
 
 server_status() {
@@ -78,13 +110,71 @@ backup_server() {
     docker exec -i "$CONTAINER_NAME" rcon-cli save-all 2>/dev/null || true
     sleep 2
     
-    BACKUP_NAME="backup-$(date +%Y%m%d-%H%M%S).tar.gz"
+    BACKUP_DIR="backups"
+    mkdir -p "$BACKUP_DIR"
+    BACKUP_NAME="$BACKUP_DIR/backup-$(date +%Y%m%d-%H%M%S).tar.gz"
     tar -czf "$BACKUP_NAME" data/ 2>/dev/null || {
         print_error "Backup failed"
         exit 1
     }
     
     print_success "Backup created: $BACKUP_NAME"
+}
+
+restore_server() {
+    local compose_cmd=$(get_docker_compose_cmd)
+    print_info "Available backups:"
+    echo ""
+    
+    if [ ! -d "backups" ] || [ -z "$(ls -A backups/*.tar.gz 2>/dev/null)" ]; then
+        print_error "No backups found in backups/ directory"
+        exit 1
+    fi
+    
+    ls -lh backups/*.tar.gz | awk '{print $9, "(" $5 ")"}'
+    echo ""
+    
+    read -p "Enter the backup filename to restore (or 'cancel'): " backup_file
+    
+    if [ "$backup_file" = "cancel" ]; then
+        print_info "Restore cancelled"
+        exit 0
+    fi
+    
+    if [ ! -f "$backup_file" ]; then
+        print_error "Backup file not found: $backup_file"
+        exit 1
+    fi
+    
+    print_warning "This will replace the current server data!"
+    read -p "Are you sure you want to continue? (yes/no): " confirm
+    
+    if [ "$confirm" != "yes" ]; then
+        print_info "Restore cancelled"
+        exit 0
+    fi
+    
+    # Stop the server
+    print_info "Stopping server..."
+    $compose_cmd down
+    
+    # Backup current data before restore
+    if [ -d "data" ]; then
+        print_info "Backing up current data..."
+        mv data "data.backup-$(date +%Y%m%d-%H%M%S)"
+    fi
+    
+    # Restore the backup
+    print_info "Restoring backup..."
+    tar -xzf "$backup_file" || {
+        print_error "Restore failed"
+        exit 1
+    }
+    
+    print_success "Backup restored successfully"
+    print_info "Starting server..."
+    $compose_cmd up -d
+    print_success "Server started with restored data"
 }
 
 console_access() {
@@ -94,16 +184,18 @@ console_access() {
 }
 
 update_server() {
+    local compose_cmd=$(get_docker_compose_cmd)
     print_info "Updating server..."
-    docker-compose down
-    docker-compose pull
-    docker-compose up -d
+    $compose_cmd down
+    $compose_cmd pull
+    $compose_cmd up -d
     print_success "Server updated and restarted"
 }
 
 build_image() {
+    local compose_cmd=$(get_docker_compose_cmd)
     print_info "Building Docker image..."
-    docker-compose build
+    $compose_cmd build
     print_success "Image built successfully"
 }
 
@@ -121,6 +213,7 @@ Commands:
     logs        View server logs (real-time)
     console     Access server console (RCON)
     backup      Create a backup of the server data
+    restore     Restore from a backup
     update      Update and restart the server
     build       Build the Docker image
     help        Show this help message
@@ -129,6 +222,7 @@ Examples:
     ./manage.sh start
     ./manage.sh logs
     ./manage.sh backup
+    ./manage.sh restore
 
 EOF
 }
@@ -157,6 +251,9 @@ case "${1:-}" in
         ;;
     backup)
         backup_server
+        ;;
+    restore)
+        restore_server
         ;;
     update)
         update_server

@@ -16,10 +16,10 @@ ENV EULA=TRUE \
     PVP=true \
     VIEW_DISTANCE=12 \
     SPAWN_PROTECTION=16 \
-    ENABLE_RCON=true \
-    RCON_PASSWORD=changeme
+    ENABLE_RCON=true
 
 # Production-specific settings
+# Note: RCON_PASSWORD must be set via environment variable or .env file
 ENV MAX_TICK_TIME=60000 \
     SPAWN_MONSTERS=true \
     SPAWN_ANIMALS=true \
@@ -52,7 +52,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
 # Copy local server-icon.png if present
 ARG SERVER_ICON_URL=""
 COPY scripts/add-server-icon.sh /tmp/add-server-icon.sh
-COPY server-icon.png /tmp/server-icon.png
+COPY --chown=minecraft:minecraft server-icon.png* /tmp/
 RUN bash /tmp/add-server-icon.sh "$SERVER_ICON_URL"
 
 # The base image handles the rest of the setup

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   minecraft-dev:
     build:
@@ -17,8 +15,8 @@ services:
       EULA: "TRUE"
       
       # Server Type - Development
-  TYPE: "SPIGOT"
-  VERSION: "1.21.5"
+      TYPE: "SPIGOT"
+      VERSION: "1.21.5"
       
       # Memory settings - Lower for dev
       MEMORY: "1G"
@@ -66,19 +64,28 @@ services:
       # Separate dev data
       - ./data-dev:/data
       
-  # Datapacks, plugins, resourcepacks
-  - ./datapacks:/datapacks:ro
-  - ./plugins:/plugins:ro
-  - ./resourcepacks:/resourcepacks:ro
-  - ./config:/config:ro
-  # Plugin configs for BlueMap, DiscordSRV, Geyser, Floodgate
-  - ./plugin-configs:/data/plugins:ro
+      # Datapacks, plugins, resourcepacks
+      - ./datapacks:/datapacks:ro
+      - ./plugins:/plugins:ro
+      - ./resourcepacks:/resourcepacks:ro
+      - ./config:/config:ro
+      # Plugin configs for BlueMap, DiscordSRV, Geyser, Floodgate
+      # Note: Read-write to allow plugins to generate and update their configs
+      - ./plugin-configs:/data/plugins
       
       # Dev logs
       - ./logs-dev:/data/logs
     
     stdin_open: true
     tty: true
+    
+    # Health check for development
+    healthcheck:
+      test: ["CMD", "mc-health"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
     
     networks:
       - minecraft-dev-network
