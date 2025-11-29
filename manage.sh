@@ -199,6 +199,25 @@ build_image() {
     print_success "Image built successfully"
 }
 
+generate_configs() {
+    print_info "Generating configurations..."
+    
+    if [ ! -f "./generate-configs.sh" ]; then
+        print_error "generate-configs.sh not found!"
+        exit 1
+    fi
+    
+    # Determine environment
+    local env="dev"
+    read -p "Generate for which environment? (dev/prod) [dev]: " env_input
+    if [ -n "$env_input" ]; then
+        env="$env_input"
+    fi
+    
+    # Run the generator
+    ./generate-configs.sh "$env"
+}
+
 show_usage() {
     cat << EOF
 Minecraft Server Management Script
@@ -206,23 +225,25 @@ Minecraft Server Management Script
 Usage: ./manage.sh [command]
 
 Commands:
-    start       Start the server
-    stop        Stop the server
-    restart     Restart the server
-    status      Show server status
-    logs        View server logs (real-time)
-    console     Access server console (RCON)
-    backup      Create a backup of the server data
-    restore     Restore from a backup
-    update      Update and restart the server
-    build       Build the Docker image
-    help        Show this help message
+    start           Start the server
+    stop            Stop the server
+    restart         Restart the server
+    status          Show server status
+    logs            View server logs (real-time)
+    console         Access server console (RCON)
+    backup          Create a backup of the server data
+    restore         Restore from a backup
+    update          Update and restart the server
+    build           Build the Docker image
+    generate-configs Generate configuration files from templates
+    help            Show this help message
 
 Examples:
     ./manage.sh start
     ./manage.sh logs
     ./manage.sh backup
     ./manage.sh restore
+    ./manage.sh generate-configs
 
 EOF
 }
@@ -260,6 +281,9 @@ case "${1:-}" in
         ;;
     build)
         build_image
+        ;;
+    generate-configs)
+        generate_configs
         ;;
     help|--help|-h)
         show_usage

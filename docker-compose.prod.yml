@@ -88,9 +88,6 @@ services:
       - ./plugins:/plugins:ro
       - ./resourcepacks:/resourcepacks:ro
       - ./config:/config:ro
-      # Plugin configs for BlueMap, DiscordSRV, Geyser, Floodgate
-      # Note: Read-write to allow plugins to generate and update their configs
-      - ./plugin-configs:/data/plugins
       
       # Production logs
       - ./logs-prod:/data/logs

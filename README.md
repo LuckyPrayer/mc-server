@@ -28,10 +28,23 @@ mc-server/
 ├── Dockerfile.prod             # Production Docker image
 ├── build.sh                    # Build and push helper script
 ├── manage.sh                   # Server management script
+├── generate-configs.sh         # Template configuration generator
 ├── datapacks/                  # Place your datapacks here (.zip files)
 ├── plugins/                    # Place your plugins here (.jar files)
 ├── resourcepacks/              # Place your resource packs here (.zip files)
-├── config/                     # Additional config files
+├── config/                     # Generated configs (from templates)
+├── templates/                  # Configuration templates
+│   ├── server/                 # Server config templates
+│   └── plugins/                # Plugin config templates
+├── scripts/                    # Build and runtime scripts
+│   ├── entrypoint.sh           # Container entrypoint for template processing
+│   └── add-server-icon.sh      # Server icon setup script
+├── docs/                       # Documentation
+│   ├── TEMPLATING_GUIDE.md     # Complete templating documentation
+│   ├── TEMPLATES_QUICKREF.md   # Quick reference guide
+│   ├── IMPROVEMENTS.md         # Changelog of improvements
+│   ├── DOCKER_PUBLISHING.md    # Docker registry publishing guide
+│   └── HARBOR_SETUP.md         # Harbor registry setup guide
 ├── data-dev/                   # Development server data (generated)
 ├── data-prod/                  # Production server data (generated)
 ├── logs-dev/                   # Development server logs (generated)
@@ -46,7 +59,24 @@ This project supports two environments:
 - **Development** (`docker-compose.dev.yml`): Lower resources, creative mode, offline mode, debug logging
 - **Production** (`docker-compose.prod.yml`): High performance, survival mode, online mode, optimized
 
-### 2. Configure Your Server
+### 2. Set Up Configuration
+
+This project uses a **template system** for configuration management. Configurations are generated automatically from templates using environment variables.
+
+**Quick setup:**
+```bash
+# Copy environment file examples
+cp .env.example .env
+cp .env.dev.example .env.dev
+cp .env.prod.example .env.prod
+
+# Edit with your values (at minimum, set RCON_PASSWORD for production)
+nano .env.prod
+```
+
+**📖 See [docs/TEMPLATING_GUIDE.md](docs/TEMPLATING_GUIDE.md) for complete documentation**
+
+### 3. Configure Your Server (Manual Method)
 
 **For Development:**
 Edit `docker-compose.dev.yml` to customize settings:
@@ -151,6 +181,31 @@ docker exec -i minecraft-server rcon-cli
 docker attach minecraft-server
 # Press Ctrl+P, Ctrl+Q to detach without stopping
 ```
+
+## Configuration Management
+
+This project includes a powerful **templating system** that generates configurations at container runtime:
+
+- ✅ **Version control friendly** - Commit templates, not generated configs
+- ✅ **Environment-specific** - Different settings for dev vs prod automatically
+- ✅ **Auto-generated** - Configs created fresh on every container start
+- ✅ **Plugin support** - Pre-configured templates for BlueMap, DiscordSRV, Geyser, Floodgate
+
+**Available templates:**
+- Server configs: `server.properties`, `bukkit.yml`, `spigot.yml`, `paper-global.yml`, `paper-world-defaults.yml`
+- BlueMap, DiscordSRV, Geyser-Spigot, Floodgate plugin configs
+
+**Usage:**
+```bash
+# Configurations are generated automatically when container starts
+docker-compose -f docker-compose.dev.yml up -d
+
+# Or generate locally for testing
+./generate-configs.sh dev
+./manage.sh generate-configs
+```
+
+**📖 Complete Guide:** [TEMPLATING_GUIDE.md](TEMPLATING_GUIDE.md)
 
 ## Server Types
 
@@ -305,7 +360,7 @@ See [HARBOR_SETUP.md](HARBOR_SETUP.md) for complete Harbor registry setup and us
 
 ### Alternative Registries
 
-Want to publish to Docker Hub or GitHub Container Registry? See [DOCKER_PUBLISHING.md](DOCKER_PUBLISHING.md) for detailed instructions on:
+Want to publish to Docker Hub or GitHub Container Registry? See [docs/DOCKER_PUBLISHING.md](docs/DOCKER_PUBLISHING.md) for detailed instructions on:
 - Building and pushing to Docker Hub
 - Publishing to GitHub Container Registry
 - Multi-platform builds (ARM64 + AMD64)

@@ -31,7 +31,13 @@ COPY --chown=minecraft:minecraft datapacks/ /datapacks/
 COPY --chown=minecraft:minecraft plugins/ /plugins/
 COPY --chown=minecraft:minecraft resourcepacks/ /resourcepacks/
 COPY --chown=minecraft:minecraft config/ /config/
-COPY --chown=minecraft:minecraft plugin-configs/ /data/plugins/
+
+# Copy templates for runtime configuration generation
+COPY --chown=minecraft:minecraft templates/ /templates/
+
+# Copy entrypoint script for template processing
+COPY --chown=minecraft:minecraft scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 LABEL environment="development" \
     maintainer="dev-team" \
@@ -39,6 +45,9 @@ LABEL environment="development" \
 
 # Expose Minecraft server port and RCON
 EXPOSE 25565 25575
+
+# Use custom entrypoint for template processing
+ENTRYPOINT ["/entrypoint.sh"]
 
 
 # --- Server Icon Logic ---

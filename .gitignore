@@ -34,3 +34,18 @@ data.backup-*/
 # Temporary files
 tmp/
 temp/
+
+# Generated configurations (from templates)
+# Note: config/ directory exists but only .gitkeep and README.md are tracked
+config/*.properties
+config/*.yml
+config/*.yaml
+config/*.json
+
+# Local preview of plugin configs (from generate-configs.sh)
+# Note: Actual plugin configs are generated at runtime in container at /data/plugins/
+plugin-configs/
+
+# Environment-specific .env files (keep examples)
+.env.dev
+.env.prod

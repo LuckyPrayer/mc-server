@@ -1,0 +1,84 @@
+# Floodgate Configuration - Template
+# Generated from template
+# Environment: ${ENVIRONMENT:-unknown}
+
+# Whether we should use the Floodgate player prefix.
+# This is useful if you want to support Java and Bedrock players without using the prefix.
+player-link:
+  # Whether to enable Floodgate's player linking system
+  # If disabled, Bedrock players will have a prefix in their username
+  enable: ${FLOODGATE_ENABLE_PLAYER_LINK:-true}
+  # The type of player linking to use
+  # Can be: global, per-player, or custom
+  # global: One link database for all servers (recommended for networks)
+  # per-player: Each player has their own link database
+  # custom: Use a custom linking system
+  type: ${FLOODGATE_PLAYER_LINK_TYPE:-global}
+  # If using custom type, specify the linking provider class
+  #custom-linking-provider: com.example.CustomLinkingProvider
+
+# Whether to require Xbox Live authentication.
+# For cracked/offline Bedrock players, this must be false.
+# If true, Bedrock players must have a Microsoft account to join.
+xbox-auth: ${FLOODGATE_XBOX_AUTH:-false}
+
+# The username prefix for linked Bedrock players when player-link is disabled
+# Keep this short and simple
+username-prefix: "${FLOODGATE_USERNAME_PREFIX:-.}"
+
+# Whether to replace spaces in Bedrock usernames with underscores
+replace-spaces: ${FLOODGATE_REPLACE_SPACES:-true}
+
+# The key file location
+# This should point to where the public key is located.
+# For most setups, the default value is fine.
+key-file-name: ${FLOODGATE_KEY_FILE:-key.pem}
+
+# Whether to disconnect players if they use an invalid key.
+# This is highly recommended to be enabled for security.
+disconnect-on-invalid-key: ${FLOODGATE_DISCONNECT_ON_INVALID_KEY:-true}
+
+# Whether to disconnect players if they use an invalid profile.
+# This is highly recommended to be enabled for security.
+disconnect-on-invalid-profile: ${FLOODGATE_DISCONNECT_ON_INVALID_PROFILE:-true}
+
+# Messages
+messages:
+  # Message sent when a player is kicked for using an invalid key
+  invalid-key: "${FLOODGATE_INVALID_KEY_MESSAGE:-§cYou are using an invalid Floodgate key!}"
+  # Message sent when a player is kicked for using an invalid profile
+  invalid-profile: "${FLOODGATE_INVALID_PROFILE_MESSAGE:-§cYour Bedrock profile is invalid!}"
+
+# The messages sent to Xbox Live authenticated players
+xbox-live-profiles:
+  # Whether to enable Xbox Live profile verification
+  enabled: ${FLOODGATE_XBOX_PROFILES_ENABLED:-true}
+  # Messages for when Xbox Live verification fails
+  messages:
+    not-verified: "${FLOODGATE_NOT_VERIFIED_MESSAGE:-§cYou must be signed in to Xbox Live!}"
+
+# Whether to send Form packets as they are, or to expand them and use CommandRequest packets for buttons.
+# This is mainly for debugging purposes. If you don't know what this does, leave it as false.
+send-floodgate-data: ${FLOODGATE_SEND_DATA:-true}
+
+# Enable metrics. Used to help us understand how Floodgate is used.
+# View our metrics at https://bstats.org/plugin/bungeecord/Floodgate
+metrics:
+  enabled: ${FLOODGATE_METRICS:-true}
+  uuid: ${FLOODGATE_UUID:-generateduuidwillbehere}
+
+# Advanced options - don't touch unless you know what you're doing!
+
+# Debug mode - prints additional information to console
+debug: ${FLOODGATE_DEBUG:-false}
+
+# The language file to use for Floodgate messages
+# Available: en_US, es_ES, de_DE, fr_FR, it_IT, ja_JP, ko_KR, nl_NL, pl_PL, pt_BR, pt_PT, ru_RU, tr_TR, zh_CN, zh_TW
+language: ${FLOODGATE_LANGUAGE:-en_US}
+
+# Whether to remove the Bedrock prefix from nicknames set by plugins
+# Only works if the prefix is at the beginning of the nickname
+remove-prefix-from-nicknames: ${FLOODGATE_REMOVE_PREFIX_FROM_NICKNAMES:-true}
+
+# Configuration version - DO NOT CHANGE
+config-version: 3

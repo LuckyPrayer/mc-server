@@ -36,7 +36,7 @@ This document summarizes the improvements made to the Minecraft Server Docker se
 - Place a 64x64 PNG named `server-icon.png` in project root to use custom icon
 - Or pass `--build-arg SERVER_ICON_URL="https://..."` during build
 
-### 3. ✅ Fixed plugin-configs Volume Mounting
+### 3. ✅ Fixed plugin-configs Volume Mounting → ⚠️ OBSOLETE (See Update Below)
 
 **Problem:** Plugin configs were mounted as read-only (`:ro`), preventing plugins from generating their configuration files.
 
@@ -47,6 +47,8 @@ This document summarizes the improvements made to the Minecraft Server Docker se
 **Files Updated:**
 - `docker-compose.dev.yml`
 - `docker-compose.prod.yml`
+
+**⚠️ UPDATE (Nov 29, 2025):** This improvement has been superseded by the templating system. The `plugin-configs/` directory and its volume mount have been **removed entirely**. Plugin configurations are now generated at runtime directly in `/data/plugins/` by the template processing system. See "Project Cleanup & Reorganization" section below.
 
 ### 4. ✅ Added .env File Validation
 
@@ -226,6 +228,58 @@ echo "RCON_PASSWORD=changeme" >> .env
 echo "RCON_PASSWORD=$(openssl rand -base64 32)" >> .env
 ```
 
+## Project Cleanup & Reorganization (Nov 29, 2025)
+
+### Changes Made
+
+**1. Removed Obsolete `plugin-configs/` Directory**
+- The old `plugin-configs/` directory contained only placeholder READMEs
+- With the templating system, plugin configs are now generated directly in `/data/plugins/` at runtime
+- Removed the directory and its volume mounts from docker-compose files
+- This simplifies the project structure and eliminates confusion
+
+**2. Consolidated Documentation**
+- Created `docs/` directory for better organization
+- Moved 6 documentation files:
+  - `IMPROVEMENTS.md` → `docs/IMPROVEMENTS.md`
+  - `TEMPLATING_GUIDE.md` → `docs/TEMPLATING_GUIDE.md`
+  - `TEMPLATE_IMPLEMENTATION.md` → `docs/TEMPLATE_IMPLEMENTATION.md`
+  - `TEMPLATES_QUICKREF.md` → `docs/TEMPLATES_QUICKREF.md`
+  - `DOCKER_PUBLISHING.md` → `docs/DOCKER_PUBLISHING.md`
+  - `HARBOR_SETUP.md` → `docs/HARBOR_SETUP.md`
+- Updated all references in README.md
+
+**3. Cleaned Up `config/` Directory**
+- Removed obsolete `server.properties.example` (replaced by templates)
+- Added comprehensive `config/README.md` explaining the generated nature of this directory
+- Updated `.gitignore` to use wildcard patterns for all generated config types
+
+**4. Updated Ignore Files**
+- `.gitignore`: Added wildcard patterns for config files, documented the docs/ structure
+- `.dockerignore`: Excluded docs/ directory from Docker builds, kept templates/
+
+**5. Updated All Documentation References**
+- Fixed paths in README.md to point to docs/ directory
+- Updated all examples to reflect the removal of plugin-configs/
+- Changed commands to use `docker exec` for inspecting plugin configs inside containers
+
+### Benefits
+
+✅ **Clearer structure** - Documentation in one place, generated files clearly separated  
+✅ **Less confusion** - No more wondering why plugin-configs/ was empty  
+✅ **Simpler setup** - One less directory to manage  
+✅ **Better patterns** - Template system is now the single source of truth  
+✅ **Smaller Docker context** - Documentation excluded from builds
+
+### Migration Notes
+
+If you have an existing deployment:
+- The `plugin-configs/` directory is no longer used and can be safely deleted
+- Plugin configurations will be generated fresh in the container's `/data/plugins/` directory
+- No action needed if using the template system correctly
+
+---
+
 ## Questions or Issues?
 
 If you encounter any problems with these improvements:
@@ -235,8 +289,10 @@ If you encounter any problems with these improvements:
 3. Review logs: `./manage.sh logs`
 4. Check container health: `docker ps`
 5. Use troubleshoot script: `./troubleshoot.sh`
+6. Consult documentation in `docs/` directory
 
 ---
 
-**Implementation Date:** November 29, 2025  
+**Initial Implementation:** November 29, 2025  
+**Cleanup & Reorganization:** November 29, 2025  
 **Status:** ✅ All high-priority improvements completed

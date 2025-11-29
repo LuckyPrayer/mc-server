@@ -25,7 +25,15 @@ COPY --chown=minecraft:minecraft resourcepacks/ /resourcepacks/
 # Copy server configuration if it exists
 COPY --chown=minecraft:minecraft config/ /config/
 
+# Copy templates for runtime configuration generation (optional)
+COPY --chown=minecraft:minecraft templates/ /templates/ 2>/dev/null || true
+
+# Copy entrypoint script for template processing (optional)
+COPY --chown=minecraft:minecraft scripts/entrypoint.sh /entrypoint.sh 2>/dev/null || true
+RUN if [ -f /entrypoint.sh ]; then chmod +x /entrypoint.sh; fi
+
 # Expose Minecraft server port
 EXPOSE 25565
 
-# The base image handles the rest of the setup
+# Use custom entrypoint if available, otherwise use default
+ENTRYPOINT ["/bin/sh", "-c", "if [ -f /entrypoint.sh ]; then /entrypoint.sh; else /start; fi"]

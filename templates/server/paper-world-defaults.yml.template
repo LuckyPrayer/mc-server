@@ -1,0 +1,301 @@
+# Paper World Configuration - Template
+# Generated from template
+# Environment: ${ENVIRONMENT:-unknown}
+
+_version: 28
+
+anticheat:
+  anti-xray:
+    enabled: ${ANTI_XRAY_ENABLED:-false}
+    engine-mode: ${ANTI_XRAY_ENGINE_MODE:-1}
+    hidden-blocks:
+    - copper_ore
+    - deepslate_copper_ore
+    - gold_ore
+    - deepslate_gold_ore
+    - iron_ore
+    - deepslate_iron_ore
+    - coal_ore
+    - deepslate_coal_ore
+    - lapis_ore
+    - deepslate_lapis_ore
+    - mossy_cobblestone
+    - obsidian
+    - chest
+    - diamond_ore
+    - deepslate_diamond_ore
+    - redstone_ore
+    - deepslate_redstone_ore
+    - clay
+    - emerald_ore
+    - deepslate_emerald_ore
+    - ender_chest
+    lava-obscures: false
+    max-block-height: 64
+    replacement-blocks:
+    - stone
+    - oak_planks
+    - deepslate
+    update-radius: 2
+    use-permission: false
+  obfuscation:
+    items:
+      hide-durability: false
+      hide-itemmeta: false
+      hide-itemmeta-with-visual-effects: false
+
+chunks:
+  auto-save-interval: ${AUTO_SAVE_INTERVAL:-default}
+  delay-chunk-unloads-by: ${DELAY_CHUNK_UNLOADS:-10s}
+  entity-per-chunk-save-limit:
+    area_effect_cloud: ${SAVE_LIMIT_AREA_EFFECT_CLOUD:-8}
+    arrow: ${SAVE_LIMIT_ARROW:-16}
+    dragon_fireball: ${SAVE_LIMIT_DRAGON_FIREBALL:-3}
+    egg: ${SAVE_LIMIT_EGG:-8}
+    ender_pearl: ${SAVE_LIMIT_ENDER_PEARL:-8}
+    experience_bottle: ${SAVE_LIMIT_EXPERIENCE_BOTTLE:-3}
+    experience_orb: ${SAVE_LIMIT_EXPERIENCE_ORB:-16}
+    eye_of_ender: ${SAVE_LIMIT_EYE_OF_ENDER:-8}
+    fireball: ${SAVE_LIMIT_FIREBALL:-8}
+    firework_rocket: ${SAVE_LIMIT_FIREWORK_ROCKET:-8}
+    llama_spit: ${SAVE_LIMIT_LLAMA_SPIT:-3}
+    potion: ${SAVE_LIMIT_POTION:-8}
+    shulker_bullet: ${SAVE_LIMIT_SHULKER_BULLET:-8}
+    small_fireball: ${SAVE_LIMIT_SMALL_FIREBALL:-8}
+    snowball: ${SAVE_LIMIT_SNOWBALL:-8}
+    spectral_arrow: ${SAVE_LIMIT_SPECTRAL_ARROW:-16}
+    trident: ${SAVE_LIMIT_TRIDENT:-16}
+    wither_skull: ${SAVE_LIMIT_WITHER_SKULL:-4}
+  fixed-chunk-inhabited-time: ${FIXED_CHUNK_INHABITED_TIME:--1}
+  max-auto-save-chunks-per-tick: ${MAX_AUTO_SAVE_CHUNKS:-24}
+  prevent-moving-into-unloaded-chunks: ${PREVENT_MOVING_UNLOADED_CHUNKS:-false}
+
+collisions:
+  allow-player-cramming-damage: ${ALLOW_PLAYER_CRAMMING_DAMAGE:-false}
+  allow-vehicle-collisions: ${ALLOW_VEHICLE_COLLISIONS:-true}
+  fix-climbing-bypassing-cramming-rule: ${FIX_CLIMBING_CRAMMING:-false}
+  max-entity-collisions: ${MAX_ENTITY_COLLISIONS:-8}
+  only-players-collide: ${ONLY_PLAYERS_COLLIDE:-false}
+
+entities:
+  armor-stands:
+    do-collision-entity-lookups: ${ARMOR_STAND_COLLISION_LOOKUPS:-true}
+    tick: ${ARMOR_STAND_TICK:-true}
+  behavior:
+    baby-zombie-movement-modifier: ${BABY_ZOMBIE_MOVEMENT_MODIFIER:-0.5}
+    disable-chest-cat-detection: ${DISABLE_CHEST_CAT_DETECTION:-false}
+    disable-creeper-lingering-effect: ${DISABLE_CREEPER_LINGERING_EFFECT:-false}
+    disable-player-crits: ${DISABLE_PLAYER_CRITS:-false}
+    door-breaking-difficulty:
+      husk:
+      - HARD
+      vindicator:
+      - NORMAL
+      - HARD
+      zombie:
+      - HARD
+      zombie_villager:
+      - HARD
+    ender-dragons-death-always-places-dragon-egg: ${DRAGON_EGG_ALWAYS_PLACE:-false}
+    experience-merge-max-value: ${EXPERIENCE_MERGE_MAX_VALUE:--1}
+    mobs-can-always-pick-up-loot:
+      skeletons: ${SKELETONS_PICKUP_LOOT:-false}
+      zombies: ${ZOMBIES_PICKUP_LOOT:-false}
+    nerf-pigmen-from-nether-portals: ${NERF_PIGMEN_FROM_PORTALS:-false}
+    parrots-are-unaffected-by-player-movement: ${PARROTS_UNAFFECTED_BY_MOVEMENT:-false}
+    phantoms-do-not-spawn-on-creative-players: ${PHANTOMS_NO_CREATIVE_SPAWN:-true}
+    phantoms-only-attack-insomniacs: ${PHANTOMS_ONLY_INSOMNIACS:-true}
+    phantoms-spawn-attempt-max-seconds: ${PHANTOMS_SPAWN_MAX_SECONDS:-119}
+    phantoms-spawn-attempt-min-seconds: ${PHANTOMS_SPAWN_MIN_SECONDS:-60}
+    piglins-guard-chests: ${PIGLINS_GUARD_CHESTS:-true}
+    pillager-patrols:
+      disable: ${DISABLE_PILLAGER_PATROLS:-false}
+      spawn-chance: ${PILLAGER_PATROL_SPAWN_CHANCE:-0.2}
+      spawn-delay:
+        per-player: ${PILLAGER_PATROL_DELAY_PER_PLAYER:-false}
+        ticks: ${PILLAGER_PATROL_DELAY_TICKS:-12000}
+      start:
+        day: ${PILLAGER_PATROL_START_DAY:-5}
+        per-player: ${PILLAGER_PATROL_START_PER_PLAYER:-false}
+    should-remove-dragon: ${SHOULD_REMOVE_DRAGON:-false}
+    spawner-nerfed-mobs-should-jump: ${SPAWNER_NERFED_MOBS_JUMP:-false}
+    zombie-villager-infection-chance: ${ZOMBIE_VILLAGER_INFECTION_CHANCE:--1.0}
+    zombies-target-turtle-eggs: ${ZOMBIES_TARGET_TURTLE_EGGS:-true}
+  entities-target-with-follow-range: ${ENTITIES_TARGET_WITH_FOLLOW_RANGE:-false}
+  mob-effects:
+    immune-to-wither-effect:
+      wither: true
+      wither-skeleton: true
+    spiders-immune-to-poison-effect: true
+    undead-immune-to-certain-effects: true
+  spawning:
+    all-chunks-are-slime-chunks: ${ALL_CHUNKS_SLIME:-false}
+    alt-item-despawn-rate:
+      enabled: ${ALT_ITEM_DESPAWN_ENABLED:-false}
+      items:
+        cobblestone: ${ALT_DESPAWN_COBBLESTONE:-300}
+    count-all-mobs-for-spawning: ${COUNT_ALL_MOBS_FOR_SPAWNING:-false}
+    creative-arrow-despawn-rate: ${CREATIVE_ARROW_DESPAWN_RATE:-default}
+    despawn-ranges:
+      ambient:
+        hard: ${DESPAWN_AMBIENT_HARD:-128}
+        soft: ${DESPAWN_AMBIENT_SOFT:-32}
+      axolotls:
+        hard: ${DESPAWN_AXOLOTLS_HARD:-128}
+        soft: ${DESPAWN_AXOLOTLS_SOFT:-32}
+      creature:
+        hard: ${DESPAWN_CREATURE_HARD:-128}
+        soft: ${DESPAWN_CREATURE_SOFT:-32}
+      misc:
+        hard: ${DESPAWN_MISC_HARD:-128}
+        soft: ${DESPAWN_MISC_SOFT:-32}
+      monster:
+        hard: ${DESPAWN_MONSTER_HARD:-128}
+        soft: ${DESPAWN_MONSTER_SOFT:-32}
+      underground_water_creature:
+        hard: ${DESPAWN_UNDERGROUND_WATER_HARD:-128}
+        soft: ${DESPAWN_UNDERGROUND_WATER_SOFT:-32}
+      water_ambient:
+        hard: ${DESPAWN_WATER_AMBIENT_HARD:-64}
+        soft: ${DESPAWN_WATER_AMBIENT_SOFT:-32}
+      water_creature:
+        hard: ${DESPAWN_WATER_CREATURE_HARD:-128}
+        soft: ${DESPAWN_WATER_CREATURE_SOFT:-32}
+    disable-mob-spawner-spawn-egg-transformation: ${DISABLE_SPAWNER_EGG_TRANSFORM:-false}
+    duplicate-uuid:
+      mode: ${DUPLICATE_UUID_MODE:-saferegen}
+      safe-regen-delete-range: ${DUPLICATE_UUID_DELETE_RANGE:-32}
+    filter-bad-tile-entity-nbt-from-falling-blocks: ${FILTER_BAD_TILE_ENTITY_NBT:-true}
+    filtered-entity-tag-nbt-paths:
+    - Pos
+    - Motion
+    - SleepingX
+    - SleepingY
+    - SleepingZ
+    iron-golems-can-spawn-in-air: ${IRON_GOLEMS_SPAWN_IN_AIR:-false}
+    monster-spawn-max-light-level: ${MONSTER_SPAWN_MAX_LIGHT:-default}
+    non-player-arrow-despawn-rate: ${NON_PLAYER_ARROW_DESPAWN_RATE:-default}
+    per-player-mob-spawns: ${PER_PLAYER_MOB_SPAWNS:-true}
+    scan-for-legacy-ender-dragon: ${SCAN_FOR_LEGACY_DRAGON:-true}
+    skeleton-horse-thunder-spawn-chance: ${SKELETON_HORSE_SPAWN_CHANCE:-default}
+    slime-spawn-height:
+      slime-chunk:
+        maximum: ${SLIME_CHUNK_SPAWN_MAX:-40.0}
+      surface-biome:
+        maximum: ${SLIME_SURFACE_SPAWN_MAX:-70.0}
+        minimum: ${SLIME_SURFACE_SPAWN_MIN:-50.0}
+    spawn-limits:
+      ambient: ${SPAWN_LIMIT_AMBIENT:--1}
+      axolotls: ${SPAWN_LIMIT_AXOLOTLS:--1}
+      creature: ${SPAWN_LIMIT_CREATURE:--1}
+      monster: ${SPAWN_LIMIT_MONSTER:--1}
+      underground_water_creature: ${SPAWN_LIMIT_UNDERGROUND_WATER:--1}
+      water_ambient: ${SPAWN_LIMIT_WATER_AMBIENT:--1}
+      water_creature: ${SPAWN_LIMIT_WATER_CREATURE:--1}
+    wandering-trader:
+      spawn-chance-failure-increment: ${WANDERING_TRADER_FAILURE_INCREMENT:-25}
+      spawn-chance-max: ${WANDERING_TRADER_CHANCE_MAX:-75}
+      spawn-chance-min: ${WANDERING_TRADER_CHANCE_MIN:-25}
+      spawn-day-length: ${WANDERING_TRADER_DAY_LENGTH:-24000}
+      spawn-minute-length: ${WANDERING_TRADER_MINUTE_LENGTH:-1200}
+    wateranimal-spawn-height:
+      maximum: ${WATERANIMAL_SPAWN_MAX:-default}
+      minimum: ${WATERANIMAL_SPAWN_MIN:-default}
+
+environment:
+  disable-explosion-knockback: ${DISABLE_EXPLOSION_KNOCKBACK:-false}
+  disable-ice-and-snow: ${DISABLE_ICE_AND_SNOW:-false}
+  disable-teleportation-suffocation-check: ${DISABLE_TELEPORT_SUFFOCATION_CHECK:-false}
+  disable-thunder: ${DISABLE_THUNDER:-false}
+  fire-tick-delay: ${FIRE_TICK_DELAY:-30}
+  frosted-ice:
+    delay:
+      max: ${FROSTED_ICE_DELAY_MAX:-40}
+      min: ${FROSTED_ICE_DELAY_MIN:-20}
+    enabled: ${FROSTED_ICE_ENABLED:-true}
+  generate-flat-bedrock: ${GENERATE_FLAT_BEDROCK:-false}
+  nether-ceiling-void-damage-height: ${NETHER_CEILING_VOID_DAMAGE:-disabled}
+  optimize-explosions: ${OPTIMIZE_EXPLOSIONS:-false}
+  portal-create-radius: ${PORTAL_CREATE_RADIUS:-16}
+  portal-search-radius: ${PORTAL_SEARCH_RADIUS:-128}
+  portal-search-vanilla-dimension-scaling: ${PORTAL_SEARCH_VANILLA_SCALING:-true}
+  treasure-maps:
+    enabled: ${TREASURE_MAPS_ENABLED:-true}
+    find-already-discovered:
+      loot-tables: ${TREASURE_MAPS_FIND_DISCOVERED_LOOT:-default}
+      villager-trade: ${TREASURE_MAPS_FIND_DISCOVERED_TRADE:-false}
+  water-over-lava-flow-speed: ${WATER_OVER_LAVA_FLOW_SPEED:-5}
+
+feature-seeds:
+  generate-random-seeds-for-all: ${GENERATE_RANDOM_SEEDS:-false}
+
+fishing-time-range:
+  maximum: ${FISHING_TIME_MAX:-600}
+  minimum: ${FISHING_TIME_MIN:-100}
+
+fixes:
+  disable-unloaded-chunk-enderpe pearl-exploit: ${FIX_UNLOADED_CHUNK_ENDERPEARL:-true}
+  falling-block-height-nerf: ${FALLING_BLOCK_HEIGHT_NERF:-disabled}
+  fix-curing-zombie-villager-discount-exploit: ${FIX_CURING_DISCOUNT_EXPLOIT:-true}
+  fix-items-merging-through-walls: ${FIX_ITEMS_MERGING_WALLS:-false}
+  prevent-tnt-from-moving-in-water: ${PREVENT_TNT_MOVING_WATER:-false}
+  split-overstacked-loot: ${SPLIT_OVERSTACKED_LOOT:-true}
+  tnt-entity-height-nerf: ${TNT_ENTITY_HEIGHT_NERF:-disabled}
+
+hopper:
+  cooldown-when-full: ${HOPPER_COOLDOWN_WHEN_FULL:-true}
+  disable-move-event: ${HOPPER_DISABLE_MOVE_EVENT:-false}
+  ignore-occluding-blocks: ${HOPPER_IGNORE_OCCLUDING_BLOCKS:-false}
+
+lootables:
+  auto-replenish: ${LOOTABLES_AUTO_REPLENISH:-false}
+  max-refills: ${LOOTABLES_MAX_REFILLS:--1}
+  refresh-max: ${LOOTABLES_REFRESH_MAX:-2d}
+  refresh-min: ${LOOTABLES_REFRESH_MIN:-12h}
+  reset-seed-on-fill: ${LOOTABLES_RESET_SEED:-true}
+  restrict-player-reloot: ${LOOTABLES_RESTRICT_RELOOT:-true}
+
+maps:
+  item-frame-cursor-limit: ${MAP_ITEM_FRAME_CURSOR_LIMIT:-128}
+  item-frame-cursor-update-interval: ${MAP_ITEM_FRAME_CURSOR_INTERVAL:-10}
+
+max-growth-height:
+  bamboo:
+    max: ${MAX_GROWTH_BAMBOO_MAX:-16}
+    min: ${MAX_GROWTH_BAMBOO_MIN:-11}
+  cactus: ${MAX_GROWTH_CACTUS:-3}
+  reeds: ${MAX_GROWTH_REEDS:-3}
+
+misc:
+  disable-end-credits: ${DISABLE_END_CREDITS:-false}
+  disable-relative-projectile-velocity: ${DISABLE_RELATIVE_PROJECTILE_VELOCITY:-false}
+  disable-sprint-interruption-on-attack: ${DISABLE_SPRINT_INTERRUPTION:-false}
+  light-queue-size: ${LIGHT_QUEUE_SIZE:-20}
+  max-leash-distance: ${MAX_LEASH_DISTANCE:-10.0}
+  redstone-implementation: ${REDSTONE_IMPLEMENTATION:-VANILLA}
+  shield-blocking-delay: ${SHIELD_BLOCKING_DELAY:-5}
+  show-sign-click-command-failure-msgs-to-player: ${SHOW_SIGN_CLICK_FAILURE:-true}
+  update-pathfinding-on-block-update: ${UPDATE_PATHFINDING_ON_BLOCK_UPDATE:-true}
+
+scoreboards:
+  allow-non-player-entities-on-scoreboards: ${ALLOW_NON_PLAYER_ENTITIES_SCOREBOARDS:-false}
+  use-vanilla-world-scoreboard-name-coloring: ${USE_VANILLA_SCOREBOARD_COLORING:-false}
+
+spawn:
+  allow-using-signs-inside-spawn-protection: ${ALLOW_SIGNS_IN_SPAWN_PROTECTION:-false}
+  keep-spawn-loaded: ${KEEP_SPAWN_LOADED:-true}
+  keep-spawn-loaded-range: ${KEEP_SPAWN_LOADED_RANGE:-10}
+
+tick-rates:
+  behavior:
+    villager:
+      validatenearbypoi: ${TICK_RATE_VILLAGER_VALIDATE_POI:--1}
+  container-update: ${TICK_RATE_CONTAINER_UPDATE:-1}
+  grass-spread: ${TICK_RATE_GRASS_SPREAD:-1}
+  mob-spawner: ${TICK_RATE_MOB_SPAWNER:-1}
+  sensor:
+    villager:
+      secondarypoisensor: ${TICK_RATE_VILLAGER_SECONDARY_POI:-40}
+
+unsupported-settings:
+  fix-invulnerable-end-crystal-exploit: true

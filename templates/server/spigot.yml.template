@@ -1,0 +1,151 @@
+# Spigot Configuration - Template
+# Generated from template
+# Environment: ${ENVIRONMENT:-unknown}
+
+config-version: 12
+
+settings:
+  debug: ${DEBUG:-false}
+  save-user-cache-on-stop-only: false
+  sample-count: 12
+  bungeecord: ${BUNGEECORD:-false}
+  player-shuffle: 0
+  user-cache-size: 1000
+  moved-wrongly-threshold: 0.0625
+  moved-too-quickly-multiplier: 10.0
+  timeout-time: 60
+  restart-on-crash: ${RESTART_ON_CRASH:-true}
+  restart-script: ./start.sh
+  netty-threads: ${NETTY_THREADS:-4}
+  attribute:
+    maxHealth:
+      max: 2048.0
+    movementSpeed:
+      max: 2048.0
+    attackDamage:
+      max: 2048.0
+  log-villager-deaths: ${LOG_VILLAGER_DEATHS:-true}
+  log-named-deaths: ${LOG_NAMED_DEATHS:-true}
+
+messages:
+  whitelist: ${WHITELIST_MESSAGE:-You are not whitelisted on this server!}
+  unknown-command: Unknown command. Type "/help" for help.
+  server-full: ${SERVER_FULL_MESSAGE:-The server is full!}
+  outdated-client: Outdated client! Please use ${MINECRAFT_VERSION:-1.21.5}
+  outdated-server: Outdated server! I'm still on ${MINECRAFT_VERSION:-1.21.5}
+  restart: ${RESTART_MESSAGE:-Server is restarting}
+
+commands:
+  silent-commandblock-console: false
+  replace-commands:
+  - setblock
+  - summon
+  - testforblock
+  - tellraw
+  log: true
+  tab-complete: 0
+  send-namespaced: true
+
+advancements:
+  disable-saving: false
+  disabled:
+  - minecraft:story/disabled
+
+world-settings:
+  default:
+    verbose: false
+    mob-spawn-range: ${MOB_SPAWN_RANGE:-8}
+    hopper-amount: 1
+    dragon-death-sound-radius: 0
+    seed-village: 10387312
+    seed-desert: 14357617
+    seed-igloo: 14357618
+    seed-jungle: 14357619
+    seed-swamp: 14357620
+    seed-monument: 10387313
+    seed-shipwreck: 165745295
+    seed-ocean: 14357621
+    seed-outpost: 165745296
+    seed-endcity: 10387313
+    seed-slime: 987234911
+    seed-nether: 30084232
+    seed-mansion: 10387319
+    seed-fossil: 14357921
+    seed-portal: 34222645
+    max-tnt-per-tick: ${MAX_TNT_PER_TICK:-100}
+    hanging-tick-frequency: 100
+    zombie-aggressive-towards-villager: true
+    nerf-spawner-mobs: ${NERF_SPAWNER_MOBS:-false}
+    enable-zombie-pigmen-portal-spawns: true
+    item-despawn-rate: ${ITEM_DESPAWN_RATE:-6000}
+    view-distance: default
+    simulation-distance: default
+    thunder-chance: 100000
+    merge-radius:
+      item: ${MERGE_RADIUS_ITEM:-2.5}
+      exp: ${MERGE_RADIUS_EXP:-3.0}
+    growth:
+      cactus-modifier: 100
+      cane-modifier: 100
+      melon-modifier: 100
+      mushroom-modifier: 100
+      pumpkin-modifier: 100
+      sapling-modifier: 100
+      beetroot-modifier: 100
+      carrot-modifier: 100
+      potato-modifier: 100
+      torchflower-modifier: 100
+      pitcher-modifier: 100
+      wheat-modifier: 100
+      netherwart-modifier: 100
+      vine-modifier: 100
+      cocoa-modifier: 100
+      bamboo-modifier: 100
+      sweetberry-modifier: 100
+      kelp-modifier: 100
+      twistingvines-modifier: 100
+      weepingvines-modifier: 100
+      cavevines-modifier: 100
+      glowberry-modifier: 100
+    entity-activation-range:
+      animals: ${ENTITY_ACTIVATION_ANIMALS:-32}
+      monsters: ${ENTITY_ACTIVATION_MONSTERS:-32}
+      raiders: ${ENTITY_ACTIVATION_RAIDERS:-48}
+      misc: ${ENTITY_ACTIVATION_MISC:-16}
+      water: ${ENTITY_ACTIVATION_WATER:-16}
+      villagers: ${ENTITY_ACTIVATION_VILLAGERS:-32}
+      flying-monsters: ${ENTITY_ACTIVATION_FLYING_MONSTERS:-32}
+      wake-up-inactive:
+        animals-max-per-tick: 4
+        animals-every: 1200
+        animals-for: 100
+        monsters-max-per-tick: 8
+        monsters-every: 400
+        monsters-for: 100
+        villagers-max-per-tick: 4
+        villagers-every: 600
+        villagers-for: 100
+        flying-monsters-max-per-tick: 8
+        flying-monsters-every: 200
+        flying-monsters-for: 100
+      villagers-work-immunity-after: 100
+      villagers-work-immunity-for: 20
+      villagers-active-for-panic: true
+      tick-inactive-villagers: true
+      ignore-spectators: false
+    ticks-per:
+      hopper-transfer: ${TICKS_PER_HOPPER_TRANSFER:-8}
+      hopper-check: ${TICKS_PER_HOPPER_CHECK:-1}
+    hunger:
+      jump-walk-exhaustion: 0.05
+      jump-sprint-exhaustion: 0.2
+      combat-exhaustion: 0.1
+      regen-exhaustion: 6.0
+      swim-multiplier: 0.01
+      sprint-multiplier: 0.1
+      other-multiplier: 0.0
+    max-tick-time:
+      tile: ${MAX_TICK_TIME_TILE:-50}
+      entity: ${MAX_TICK_TIME_ENTITY:-50}
+    squid-spawn-range:
+      min: 45.0

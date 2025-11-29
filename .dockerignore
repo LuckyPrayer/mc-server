@@ -7,9 +7,10 @@ logs/
 .gitignore
 .gitattributes
 
-# Documentation (optional - include if you want docs in image)
-# README.md
-# DOCKER_PUBLISHING.md
+# Documentation (moved to docs/ directory)
+docs/
+*.md
+!templates/**/*.md
 
 # IDE and editor files
 .vscode/
@@ -34,7 +35,6 @@ temp/
 
 # Docker Compose override files (for local dev)
 docker-compose.override.yml
-docker-compose.dev.yml
 
 # CI/CD files (optional)
 .github/
@@ -42,3 +42,9 @@ docker-compose.dev.yml
 # Build artifacts
 *.tar
 *.tar.gz
+
+# Keep templates - they're needed in the container!
+!templates/
+
+# Keep scripts - needed for entrypoint
+!scripts/
