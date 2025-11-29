@@ -1,0 +1,115 @@
+# DiscordSRV Configuration - Template
+# Generated from template
+# Environment: ${ENVIRONMENT:-unknown}
+
+# Discord bot token
+# Get one at https://discord.com/developers/applications
+# NEVER SHARE THIS TOKEN WITH ANYONE!
+BotToken: "${DISCORD_BOT_TOKEN}"
+
+# Channel IDs for linking channels
+# Chat channel - Where in-game chat appears
+# Right-click on a channel in Discord and click "Copy ID"
+Channels:
+  global: "${DISCORD_CHAT_CHANNEL_ID:-000000000000000000}"
+  
+# Console channel (optional) - Where console logs appear
+#  console: "000000000000000000"
+
+# Voice channel (optional) - Shows online player count
+#  voice: "000000000000000000"
+
+# Discord command prefix
+DiscordCommandPrefix: "${DISCORD_COMMAND_PREFIX:-!}"
+
+# The ID of the server (guild) DiscordSRV should use
+# Right-click on your server icon and click "Copy ID"
+GuildId: "${DISCORD_GUILD_ID:-000000000000000000}"
+
+# Game chat format
+# %displayname% - The player's display name
+# %message% - The message
+# %world% - The world the player is in
+MinecraftChatToDiscordMessageFormat: "${DISCORD_CHAT_FORMAT:-**%displayname%**: %message%}"
+
+# Discord chat format  
+# %name% - The Discord username
+# %toprolecolor% - Color code of the user's top role
+# %toprolename% - Name of the user's top role
+# %message% - The message
+DiscordChatChannelMinecraftMessageFormat: "${DISCORD_TO_MC_FORMAT:-&b%name%&r: %message%}"
+
+# Player join/leave messages
+MinecraftPlayerJoinMessageFormat: "${MC_JOIN_FORMAT:-:white_check_mark: **%displayname%** joined the server}"
+MinecraftPlayerLeaveMessageFormat: "${MC_LEAVE_FORMAT:-:x: **%displayname%** left the server}"
+
+# Death messages
+MinecraftPlayerDeathMessageFormat: "${MC_DEATH_FORMAT:-:skull: **%deathmessage%**}"
+
+# Achievement messages  
+MinecraftPlayerAchievementMessagesFormat: "${MC_ACHIEVEMENT_FORMAT:-:medal: **%displayname%** has earned the achievement **[%achievement%]**}"
+
+# Server start/stop messages
+DiscordChatChannelServerStartupMessage: "${SERVER_START_MESSAGE:-:white_check_mark: **Server has started**}"
+DiscordChatChannelServerShutdownMessage: "${SERVER_STOP_MESSAGE:-:octagonal_sign: **Server has stopped**}"
+
+# Webhook settings
+Experiment_WebhookChatMessageDelivery: ${DISCORD_USE_WEBHOOK:-false}
+Experiment_WebhookChatMessageUsernameFormat: "${DISCORD_WEBHOOK_USERNAME_FORMAT:-%displayname%}"
+Experiment_WebhookChatMessageAvatarUrl: "${DISCORD_WEBHOOK_AVATAR_URL:-https://crafatar.com/avatars/%uuid-nodashes%}"
+
+# Mentions
+DiscordChatChannelTranslateMentions: ${DISCORD_TRANSLATE_MENTIONS:-true}
+DiscordChatChannelAllowedMentions: ${DISCORD_ALLOWED_MENTIONS:-user,channel,emote}
+
+# Console settings
+DiscordConsoleChannelLevels: ${DISCORD_CONSOLE_LEVELS:-info, warn, error}
+DiscordConsoleChannelFilters: ${DISCORD_CONSOLE_FILTERS:-}
+
+# Voice settings
+# Show player count in voice channel name
+VoiceEnabled: ${DISCORD_VOICE_ENABLED:-false}
+VoiceServerName: "${DISCORD_VOICE_SERVER_NAME:-%playercount% players online}"
+VoiceServerNameFormat: "${DISCORD_VOICE_FORMAT:-(%playercount%) %motd%}"
+VoiceStatusUpdateRateInMinutes: ${DISCORD_VOICE_UPDATE_RATE:-5}
+
+# Status/Activity
+DiscordGameStatus: "${DISCORD_GAME_STATUS:-Playing with %playercount% players}"
+StatusUpdateRateInMinutes: ${DISCORD_STATUS_UPDATE_RATE:-2}
+
+# Avatar settings
+AvatarUrl: "${DISCORD_AVATAR_URL:-https://crafatar.com/avatars/%uuid-nodashes%?size=128}"
+
+# Debug settings
+Debug: ${DISCORD_DEBUG:-false}
+DebugLevel: ${DISCORD_DEBUG_LEVEL:-1}
+
+# Language
+Language: "${DISCORD_LANGUAGE:-en}"
+
+# Timezone for timestamps
+Timezone: "${DISCORD_TIMEZONE:-default}"
+
+# Date format for timestamps
+DateFormat: "${DISCORD_DATE_FORMAT:-EEE, d. MMM yyyy HH:mm:ss z}"
+
+# Connection settings
+ChannelTopicUpdaterRateInMinutes: ${DISCORD_TOPIC_UPDATE_RATE:-10}
+ChannelTopicAtServerShutdownEnabled: ${DISCORD_TOPIC_AT_SHUTDOWN:-true}
+
+# Canned responses
+CannedResponses:
+  !ip: "${SERVER_IP_RESPONSE:-Connect to: ${SERVER_IP:-play.example.com}}"
+  !website: "${WEBSITE_RESPONSE:-Visit: ${SERVER_WEBSITE:-https://example.com}}"
+  !map: "${MAP_RESPONSE:-View map: ${BLUEMAP_URL:-http://map.example.com:8100}}"
+
+# Require linked account to chat
+RequireLinkedAccount: ${DISCORD_REQUIRE_LINKED:-false}
+
+# Synchronization settings
+GroupRoleSynchronizationGroupsAndRolesToSync: {}
+GroupRoleSynchronizationCycleTime: ${DISCORD_SYNC_CYCLE_TIME:-5}
+
+# Nickname sync
+NicknameFormat: "${DISCORD_NICKNAME_FORMAT:-${displayname}}"
+NicknameSynchronizationEnabled: ${DISCORD_NICKNAME_SYNC:-false}
