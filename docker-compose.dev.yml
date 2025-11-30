@@ -6,9 +6,15 @@ services:
     container_name: minecraft-server-dev
     restart: unless-stopped
     
+    # Load environment variables from .env.dev
+    env_file:
+      - .env.dev
+    
     ports:
-      - "25565:25565"  # Minecraft server port
-      - "25575:25575"  # RCON port
+      - "25565:25565"  # Minecraft Java Edition
+      - "25575:25575"  # RCON
+      - "8100:8100"    # BlueMap Web UI
+      - "19132:19132/udp"  # Geyser Bedrock Edition
     
     environment:
       # Accept EULA
@@ -28,7 +34,7 @@ services:
       DIFFICULTY: "peaceful"
       MODE: "creative"
       MAX_PLAYERS: "10"
-      ONLINE_MODE: "false"  # Allow cracked clients in dev
+      # ONLINE_MODE comes from .env.dev
       PVP: "false"
       VIEW_DISTANCE: "8"
       
@@ -59,19 +65,24 @@ services:
       ENABLE_AUTOPAUSE: "true"
       AUTOPAUSE_TIMEOUT_EST: "60"
       AUTOPAUSE_TIMEOUT_INIT: "60"
+      
+      # Plugin settings are loaded from .env.dev via env_file directive
+      # Only override base Minecraft server settings here
     
     volumes:
       # Separate dev data
-      - ./data-dev:/data
+      # :Z flag is required for SELinux (Fedora/RHEL) - sets private unshared label
+      - ./data-dev:/data:Z
       
       # Datapacks, plugins, resourcepacks
-      - ./datapacks:/datapacks:ro
-      - ./plugins:/plugins:ro
-      - ./resourcepacks:/resourcepacks:ro
-      - ./config:/config:ro
+      # :z flag for read-only shared volumes on SELinux systems
+      - ./datapacks:/datapacks:ro,z
+      - ./plugins:/plugins:ro,z
+      - ./resourcepacks:/resourcepacks:ro,z
+      - ./config:/config:ro,z
       
       # Dev logs
-      - ./logs-dev:/data/logs
+      - ./logs-dev:/data/logs:Z
     
     stdin_open: true
     tty: true

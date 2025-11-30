@@ -6,9 +6,15 @@ services:
     container_name: minecraft-server-prod
     restart: always
     
+    # Load environment variables from .env.prod
+    env_file:
+      - .env.prod
+    
     ports:
-      - "25565:25565"  # Minecraft server port
-      - "25575:25575"  # RCON port
+      - "25565:25565"  # Minecraft Java Edition
+      - "25575:25575"  # RCON
+      - "8100:8100"    # BlueMap Web UI
+      - "19132:19132/udp"  # Geyser Bedrock Edition
     
     environment:
       # Accept EULA
@@ -81,16 +87,18 @@ services:
     
     volumes:
       # Production data
-      - ./data-prod:/data
+      # :Z flag is required for SELinux (Fedora/RHEL) - sets private unshared label
+      - ./data-prod:/data:Z
       
       # Datapacks, plugins, resourcepacks
-      - ./datapacks:/datapacks:ro
-      - ./plugins:/plugins:ro
-      - ./resourcepacks:/resourcepacks:ro
-      - ./config:/config:ro
+      # :z flag for read-only shared volumes on SELinux systems
+      - ./datapacks:/datapacks:ro,z
+      - ./plugins:/plugins:ro,z
+      - ./resourcepacks:/resourcepacks:ro,z
+      - ./config:/config:ro,z
       
       # Production logs
-      - ./logs-prod:/data/logs
+      - ./logs-prod:/data/logs:Z
     
     stdin_open: true
     tty: true
