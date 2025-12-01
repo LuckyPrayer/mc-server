@@ -1,25 +1,25 @@
 # BlueMap Core Configuration - Template
 # Generated from template
-# Environment: ${ENVIRONMENT:-unknown}
+# Environment: ${ENVIRONMENT}
 
 # By changing the setting (accept-download) to TRUE you are indicating that you have accepted the 
 # mojang EULA (https://account.mojang.com/documents/minecraft_eula),
 # you confirm that you own a license to Minecraft (Java Edition)
 # and you agree that BlueMap will download and use a Minecraft client-jar from Mojang's servers.
-accept-download: ${BLUEMAP_ACCEPT_DOWNLOAD:-false}
+accept-download: ${BLUEMAP_ACCEPT_DOWNLOAD}
 
 # This changes the amount of loaded maps per Threads.
 # Possible values are: 1 or higher.
 # Default is 3.
-maps-per-thread: ${BLUEMAP_MAPS_PER_THREAD:-3}
+maps-per-thread: ${BLUEMAP_MAPS_PER_THREAD}
 
 # The folder where bluemap saves data-files it needs during runtime or to save.
 # Default is "bluemap"
-data: "${BLUEMAP_DATA_FOLDER:-bluemap}"
+data: "${BLUEMAP_DATA_FOLDER}"
 
 # The webroot of the website that displays the map.
 # Default is "./bluemap/web"
-webroot: "${BLUEMAP_WEBROOT:-bluemap/web}"
+webroot: "${BLUEMAP_WEBROOT}"
 
 # Unncomment this to override the path where bluemap stores the data-files.
 # Default is "<webroot>/data"
@@ -27,36 +27,36 @@ webroot: "${BLUEMAP_WEBROOT:-bluemap/web}"
 
 # If the web-application should use cookies to save the state of the website.
 # Default is true
-use-cookies: ${BLUEMAP_USE_COOKIES:-true}
+use-cookies: ${BLUEMAP_USE_COOKIES}
 
 # If the server should send HTTP-Headers to prevent browsers from caching the map-tiles.
 # If this is set to false, the map will show outdated tiles in some situations.
 # Default is true
-disable-tile-caching: ${BLUEMAP_DISABLE_TILE_CACHING:-true}
+disable-tile-caching: ${BLUEMAP_DISABLE_TILE_CACHING}
 
 # If this is true, BlueMap might send really basic metrics reports containing only the implementation-name and
 # the version of bluemap that is being used to https://metrics.bluemap.bluecolored.de/bluemap
 # This helps me stay motivated to keep working on this awesome project!
 # (Please leave it on if you are using BlueMap!)
 # Default is true
-metrics: ${BLUEMAP_METRICS:-true}
+metrics: ${BLUEMAP_METRICS}
 
 # The port that the webserver listens to.
 # Default is 8100
-webserver-port: ${BLUEMAP_PORT:-8100}
+webserver-port: ${BLUEMAP_PORT}
 
 # Max number of simultaneous connections that the webserver allows.
 # Default is 100
-webserver-max-connections: ${BLUEMAP_MAX_CONNECTIONS:-100}
+webserver-max-connections: ${BLUEMAP_MAX_CONNECTIONS}
 
 # The IP-Address that the webserver binds to.
 # If this is "0.0.0.0" bluemap will bind to all available local addresses.
 # Default is "0.0.0.0"
-webserver-bind-address: "${BLUEMAP_BIND_ADDRESS:-0.0.0.0}"
+webserver-bind-address: "${BLUEMAP_BIND_ADDRESS}"
 
 # If the web-server is enabled
 # Default is true
-enable-webserver: ${BLUEMAP_ENABLE_WEBSERVER:-true}
+enable-webserver: ${BLUEMAP_ENABLE_WEBSERVER}
 
 # The folder where the maps are saved.
 # You can change this to e.g. "/var/www/" to host the map-files with your own web-server.
@@ -66,49 +66,49 @@ enable-webserver: ${BLUEMAP_ENABLE_WEBSERVER:-true}
 # bluemap has a method of live-updating the map-tiles (optional).
 # If this is set to true, bluemap will update the map-data of the web-application when a map is updated.
 # Default is true
-live-updates: ${BLUEMAP_LIVE_UPDATES:-true}
+live-updates: ${BLUEMAP_LIVE_UPDATES}
 
 # If this is set to true, bluemap will clean up leftover map-tiles from time to time.
 # Set this to false to disabled this behavior.
 # Default is true
-purge-old-tiles: ${BLUEMAP_PURGE_OLD_TILES:-true}
+purge-old-tiles: ${BLUEMAP_PURGE_OLD_TILES}
 
 # The interval (in minutes) in which the purge-task runs.
 # Only used if purge-old-tiles is set to true.
 # Default is 120 (2 hours)
-purge-interval: ${BLUEMAP_PURGE_INTERVAL:-120}
+purge-interval: ${BLUEMAP_PURGE_INTERVAL}
 
 # If this is set to true, bluemap will update all maps when the server starts.
 # This is a good way to make sure your maps are always up to date.
 # Default is false
-render-on-start: ${BLUEMAP_RENDER_ON_START:-false}
+render-on-start: ${BLUEMAP_RENDER_ON_START}
 
 # The interval (in seconds) in which the maps are updated.
 # Default is 300 (5 minutes)
-render-interval: ${BLUEMAP_RENDER_INTERVAL:-300}
+render-interval: ${BLUEMAP_RENDER_INTERVAL}
 
 # The maximum number of queued tasks for updating the map.
 # Depending on the size of your world and the hardware you are using, you should set this to
 # a reasonable value. If this is set too high, the queue will fill up and the updates will take
 # longer and longer. If it is too low, the queue might run empty from time to time.
 # Default is 5000
-render-queue-size: ${BLUEMAP_RENDER_QUEUE_SIZE:-5000}
+render-queue-size: ${BLUEMAP_RENDER_QUEUE_SIZE}
 
 # The maximum number of threads that are used for rendering the map.
 # If this is set to 0, the number of threads will be determined automatically.
 # Default is 0
-render-thread-count: ${BLUEMAP_RENDER_THREADS:-0}
+render-thread-count: ${BLUEMAP_RENDER_THREADS}
 
 # This is the distance (in chunks around a player) in which the map will automatically update.
 # Default is 0 (disabled)
-update-radius: ${BLUEMAP_UPDATE_RADIUS:-0}
+update-radius: ${BLUEMAP_UPDATE_RADIUS}
 
 # loglevel
 # possible values: "OFF", "ERROR", "WARN", "INFO", "DEBUG", "TRACE", "ALL"
 # Default is "INFO"
-loglevel: "${BLUEMAP_LOGLEVEL:-INFO}"
+loglevel: "${BLUEMAP_LOGLEVEL}"
 
 # If this is set to true, bluemap will log detailed information about the time each task took to render.
 # This is useful for finding performance issues.
 # Default is false
-timings-enabled: ${BLUEMAP_TIMINGS_ENABLED:-false}
+timings-enabled: ${BLUEMAP_TIMINGS_ENABLED}

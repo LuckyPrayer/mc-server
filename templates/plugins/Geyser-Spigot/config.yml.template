@@ -11,131 +11,131 @@
 
 bedrock:
   # The IP address that will listen for connections.
-  #address: ${GEYSER_BEDROCK_ADDRESS:-0.0.0.0}
+  #address: ${GEYSER_BEDROCK_ADDRESS}
   
   # The port that will listen for connections
-  port: ${GEYSER_PORT:-19132}
+  port: ${GEYSER_PORT}
   
   # Some hosting services change your Java port everytime you start the server and require the same port to be used for Bedrock.
-  clone-remote-port: ${GEYSER_CLONE_REMOTE_PORT:-false}
+  clone-remote-port: ${GEYSER_CLONE_REMOTE_PORT}
   
   # The MOTD that will be broadcasted to Minecraft: Bedrock Edition clients
-  motd1: "${GEYSER_MOTD1:-Geyser}"
-  motd2: "${GEYSER_MOTD2:-Another Geyser server.}"
+  motd1: "${GEYSER_MOTD1}"
+  motd2: "${GEYSER_MOTD2}"
   
   # The Server Name that will be sent to Minecraft: Bedrock Edition clients
-  server-name: "${GEYSER_SERVER_NAME:-Geyser}"
+  server-name: "${GEYSER_SERVER_NAME}"
   
   # How much to compress network traffic to the Bedrock client
   # -1 to disable, 0-9 for compression level
-  compression-level: ${GEYSER_COMPRESSION_LEVEL:-6}
+  compression-level: ${GEYSER_COMPRESSION_LEVEL}
   
   # Whether to enable PROXY protocol or not for clients
-  enable-proxy-protocol: ${GEYSER_BEDROCK_PROXY_PROTOCOL:-false}
+  enable-proxy-protocol: ${GEYSER_BEDROCK_PROXY_PROTOCOL}
 
 remote:
   # The IP address of the remote (Java Edition) server
   # Leave as "auto" if floodgate is installed.
-  address: ${GEYSER_REMOTE_ADDRESS:-auto}
+  address: ${GEYSER_REMOTE_ADDRESS}
   
   # The port of the remote (Java Edition) server
-  port: ${GEYSER_REMOTE_PORT:-25565}
+  port: ${GEYSER_REMOTE_PORT}
   
   # Authentication type. Can be offline, online, or floodgate
   # If Floodgate is installed and address is "auto", this will automatically be "floodgate"
-  auth-type: ${GEYSER_AUTH_TYPE:-online}
+  auth-type: ${GEYSER_AUTH_TYPE}
   
   # Whether to enable PROXY protocol while connecting to the server
-  use-proxy-protocol: ${GEYSER_REMOTE_PROXY_PROTOCOL:-false}
+  use-proxy-protocol: ${GEYSER_REMOTE_PROXY_PROTOCOL}
   
   # Forward the hostname that the Bedrock client used to connect
-  forward-hostname: ${GEYSER_FORWARD_HOSTNAME:-false}
+  forward-hostname: ${GEYSER_FORWARD_HOSTNAME}
 
 # Floodgate encryption key file
 # Leave as "key.pem" if using Floodgate on the same server
-floodgate-key-file: ${GEYSER_FLOODGATE_KEY:-key.pem}
+floodgate-key-file: ${GEYSER_FLOODGATE_KEY}
 
 # For online mode authentication type only.
 # Stores Bedrock players that should have their Java Edition account saved after login.
 saved-user-logins: []
 
 # Timeout for user authorization in seconds
-pending-authentication-timeout: ${GEYSER_AUTH_TIMEOUT:-120}
+pending-authentication-timeout: ${GEYSER_AUTH_TIMEOUT}
 
 # Bedrock clients can freeze when opening command prompt
-command-suggestions: ${GEYSER_COMMAND_SUGGESTIONS:-true}
+command-suggestions: ${GEYSER_COMMAND_SUGGESTIONS}
 
 # Ping passthrough options
-passthrough-motd: ${GEYSER_PASSTHROUGH_MOTD:-true}
-passthrough-player-counts: ${GEYSER_PASSTHROUGH_PLAYER_COUNTS:-true}
-legacy-ping-passthrough: ${GEYSER_LEGACY_PING_PASSTHROUGH:-false}
-ping-passthrough-interval: ${GEYSER_PING_INTERVAL:-3}
+passthrough-motd: ${GEYSER_PASSTHROUGH_MOTD}
+passthrough-player-counts: ${GEYSER_PASSTHROUGH_PLAYER_COUNTS}
+legacy-ping-passthrough: ${GEYSER_LEGACY_PING_PASSTHROUGH}
+ping-passthrough-interval: ${GEYSER_PING_INTERVAL}
 
 # Forward player ping to the server
-forward-player-ping: ${GEYSER_FORWARD_PLAYER_PING:-false}
+forward-player-ping: ${GEYSER_FORWARD_PLAYER_PING}
 
 # Maximum amount of players that can connect (visual only)
-max-players: ${GEYSER_MAX_PLAYERS:-100}
+max-players: ${GEYSER_MAX_PLAYERS}
 
 # Debug messages in console
-debug-mode: ${GEYSER_DEBUG:-false}
+debug-mode: ${GEYSER_DEBUG}
 
 # Allow a fake cooldown indicator to be sent
 # Options: "title", "actionbar", or "false"
-show-cooldown: ${GEYSER_SHOW_COOLDOWN:-title}
+show-cooldown: ${GEYSER_SHOW_COOLDOWN}
 
 # Controls if coordinates are shown to players
-show-coordinates: ${GEYSER_SHOW_COORDINATES:-true}
+show-coordinates: ${GEYSER_SHOW_COORDINATES}
 
 # Whether Bedrock players are blocked from scaffolding-style bridging
-disable-bedrock-scaffolding: ${GEYSER_DISABLE_SCAFFOLDING:-false}
+disable-bedrock-scaffolding: ${GEYSER_DISABLE_SCAFFOLDING}
 
 # Emote offhand workaround
 # Options: "disabled", "no-emotes", "emotes-and-offhand"
-emote-offhand-workaround: "${GEYSER_EMOTE_OFFHAND:-disabled}"
+emote-offhand-workaround: "${GEYSER_EMOTE_OFFHAND}"
 
 # The default locale if client's is not available
-#default-locale: ${GEYSER_DEFAULT_LOCALE:-en_us}
+#default-locale: ${GEYSER_DEFAULT_LOCALE}
 
 # Days to cache images (0 = disabled)
-cache-images: ${GEYSER_CACHE_IMAGES:-0}
+cache-images: ${GEYSER_CACHE_IMAGES}
 
 # Custom skulls display settings
-allow-custom-skulls: ${GEYSER_ALLOW_CUSTOM_SKULLS:-true}
-max-visible-custom-skulls: ${GEYSER_MAX_CUSTOM_SKULLS:-128}
-custom-skull-render-distance: ${GEYSER_CUSTOM_SKULL_DISTANCE:-32}
+allow-custom-skulls: ${GEYSER_ALLOW_CUSTOM_SKULLS}
+max-visible-custom-skulls: ${GEYSER_MAX_CUSTOM_SKULLS}
+custom-skull-render-distance: ${GEYSER_CUSTOM_SKULL_DISTANCE}
 
 # Whether to add items and blocks which don't exist in Bedrock Edition
-add-non-bedrock-items: ${GEYSER_ADD_NON_BEDROCK_ITEMS:-true}
+add-non-bedrock-items: ${GEYSER_ADD_NON_BEDROCK_ITEMS}
 
 # Bedrock building above Y127 in Nether workaround
-above-bedrock-nether-building: ${GEYSER_ABOVE_BEDROCK_NETHER:-false}
+above-bedrock-nether-building: ${GEYSER_ABOVE_BEDROCK_NETHER}
 
 # Force clients to load all resource packs
-force-resource-packs: ${GEYSER_FORCE_RESOURCE_PACKS:-true}
+force-resource-packs: ${GEYSER_FORCE_RESOURCE_PACKS}
 
 # Allow Xbox achievements to be unlocked
-xbox-achievements-enabled: ${GEYSER_XBOX_ACHIEVEMENTS:-false}
+xbox-achievements-enabled: ${GEYSER_XBOX_ACHIEVEMENTS}
 
 # Whether to log player IP addresses
-log-player-ip-addresses: ${GEYSER_LOG_PLAYER_IPS:-true}
+log-player-ip-addresses: ${GEYSER_LOG_PLAYER_IPS}
 
 # Notify about new Geyser versions
-notify-on-new-bedrock-update: ${GEYSER_NOTIFY_NEW_VERSION:-true}
+notify-on-new-bedrock-update: ${GEYSER_NOTIFY_NEW_VERSION}
 
 # Item used to mark unavailable inventory slots
-unusable-space-block: ${GEYSER_UNUSABLE_SPACE_BLOCK:-minecraft:barrier}
+unusable-space-block: ${GEYSER_UNUSABLE_SPACE_BLOCK}
 
 # bStats metrics
 metrics:
-  enabled: ${GEYSER_METRICS:-true}
-  uuid: ${GEYSER_METRICS_UUID:-generated}
+  enabled: ${GEYSER_METRICS}
+  uuid: ${GEYSER_METRICS_UUID}
 
 # ADVANCED OPTIONS
-scoreboard-packet-threshold: ${GEYSER_SCOREBOARD_THRESHOLD:-20}
-enable-proxy-connections: ${GEYSER_ENABLE_PROXY_CONNECTIONS:-false}
-mtu: ${GEYSER_MTU:-1400}
-use-direct-connection: ${GEYSER_USE_DIRECT_CONNECTION:-true}
-disable-compression: ${GEYSER_DISABLE_COMPRESSION:-true}
+scoreboard-packet-threshold: ${GEYSER_SCOREBOARD_THRESHOLD}
+enable-proxy-connections: ${GEYSER_ENABLE_PROXY_CONNECTIONS}
+mtu: ${GEYSER_MTU}
+use-direct-connection: ${GEYSER_USE_DIRECT_CONNECTION}
+disable-compression: ${GEYSER_DISABLE_COMPRESSION}
 
 config-version: 4

@@ -5,26 +5,26 @@
 
 # With this setting you can disable the creation and updating of all web-app related files
 # Default is true
-enabled: ${BLUEMAP_WEBAPP_ENABLED:-true}
+enabled: ${BLUEMAP_WEBAPP_ENABLED}
 
 # The webroot where the web-application files will be created.
 # Usually this should be set to the same directory like in the webserver.conf!
 # Default is "bluemap/web"
-webroot: "${BLUEMAP_WEBROOT:-bluemap/web}"
+webroot: "${BLUEMAP_WEBROOT}"
 
 # Whether the settings.json of the webapp should be updated/synchronized with the current bluemap settings.
 # If this is set to "false", bluemap will only add maps to the settings.json but never remove unknown ones or update other settings.
 # Disabling this is for example useful if you are running multiple bluemap instances on the same webroot and don't want them to overwrite each others maps.
 # Default is true
-update-settings-file: ${BLUEMAP_UPDATE_SETTINGS_FILE:-true}
+update-settings-file: ${BLUEMAP_UPDATE_SETTINGS_FILE}
 
 # If the web-application should use cookies to save the configurations of a user.
 # Default is true
-use-cookies: ${BLUEMAP_USE_COOKIES:-true}
+use-cookies: ${BLUEMAP_USE_COOKIES}
 
 # If the webapp will default to flat-view instead of perspective-view.
 # Default is false
-default-to-flat-view: ${BLUEMAP_DEFAULT_FLAT_VIEW:-false}
+default-to-flat-view: ${BLUEMAP_DEFAULT_FLAT_VIEW}
 
 # The default map and camera-location where a user will start after opening the webapp.
 # This is in form of the url-anchor: Open your map in a browser and look at the url, everything after the '#' is the value for this setting.
@@ -32,27 +32,27 @@ default-to-flat-view: ${BLUEMAP_DEFAULT_FLAT_VIEW:-false}
 #start-location: "${BLUEMAP_START_LOCATION}"
 
 # The minimum (closest) and maximum (furthest) distance (in blocks) that the camera can be from the ground
-min-zoom-distance: ${BLUEMAP_MIN_ZOOM:-5}
-max-zoom-distance: ${BLUEMAP_MAX_ZOOM:-100000}
+min-zoom-distance: ${BLUEMAP_MIN_ZOOM}
+max-zoom-distance: ${BLUEMAP_MAX_ZOOM}
 
 # The default value of the resolution (settings-menu)
 # Possible values are: 0.5, 1, 2
 # Default is 1
-resolution-default: ${BLUEMAP_RESOLUTION_DEFAULT:-1}
+resolution-default: ${BLUEMAP_RESOLUTION_DEFAULT}
 
 # The min, max and default values of the hires render-distance slider (settings-menu)
 # The values are in blocks.
 # Default is max:500 default:100 and min:0
-hires-slider-max: ${BLUEMAP_HIRES_MAX:-500}
-hires-slider-default: ${BLUEMAP_HIRES_DEFAULT:-100}
-hires-slider-min: ${BLUEMAP_HIRES_MIN:-0}
+hires-slider-max: ${BLUEMAP_HIRES_MAX}
+hires-slider-default: ${BLUEMAP_HIRES_DEFAULT}
+hires-slider-min: ${BLUEMAP_HIRES_MIN}
 
 # The min, max and default values of the lowres render-distance slider (settings-menu)
 # The values are in blocks.
 # Default is max:7000 default:2000 and min:500
-lowres-slider-max: ${BLUEMAP_LOWRES_MAX:-7000}
-lowres-slider-default: ${BLUEMAP_LOWRES_DEFAULT:-2000}
-lowres-slider-min: ${BLUEMAP_LOWRES_MIN:-500}
+lowres-slider-max: ${BLUEMAP_LOWRES_MAX}
+lowres-slider-default: ${BLUEMAP_LOWRES_DEFAULT}
+lowres-slider-min: ${BLUEMAP_LOWRES_MIN}
 
 # Here you can add URLs to custom scripts (js) so they will be loaded by the webapp
 # You can place them somewhere in bluemap's webroot and add the (relative) link here

@@ -7,117 +7,117 @@ ConfigVersion: 1.29.0
 
 # Bot token; don't know what this is? Look at the video on the plugin page for instructions
 # You must restart your server after changing this option
-BotToken: "${DISCORD_BOT_TOKEN:?Discord bot token required}"
+BotToken: "${DISCORD_BOT_TOKEN}"
 
 # Channel links from game to Discord
 # syntax is Channels: {"in-game channel name from Minecraft": "numerical channel ID from Discord"}
 # The first part of channel pairs is not the Discord channel name!
 # Run "/discord reload" after changing this option to apply
-Channels: {"global": "${DISCORD_CHAT_CHANNEL_ID:?Discord chat channel ID required}"}
+Channels: {"global": "${DISCORD_CHAT_CHANNEL_ID}"}
 
 # Console channel numerical ID (NOT NAME), leave blank to disable the console channel all together
-DiscordConsoleChannelId: "${DISCORD_CONSOLE_CHANNEL_ID:-}"
+DiscordConsoleChannelId: "${DISCORD_CONSOLE_CHANNEL_ID}"
 
 # Experiments
-Experiment_JdbcAccountLinkBackend: "${DISCORD_JDBC_URL:-jdbc:mysql://HOST:PORT/DATABASE?autoReconnect=true&useSSL=false}"
-Experiment_JdbcTablePrefix: "${DISCORD_JDBC_PREFIX:-discordsrv}"
-Experiment_JdbcUsername: "${DISCORD_JDBC_USERNAME:-username}"
-Experiment_JdbcPassword: "${DISCORD_JDBC_PASSWORD:-password}"
-Experiment_WebhookChatMessageDelivery: ${DISCORD_WEBHOOK_DELIVERY:-false}
-Experiment_WebhookChatMessageUsernameFormat: "${DISCORD_WEBHOOK_USERNAME_FORMAT:-%displayname%}"
-Experiment_WebhookChatMessageFormat: "${DISCORD_WEBHOOK_MESSAGE_FORMAT:-%message%}"
-Experiment_WebhookChatMessageUsernameFromDiscord: ${DISCORD_WEBHOOK_USERNAME_FROM_DISCORD:-false}
-Experiment_WebhookChatMessageAvatarFromDiscord: ${DISCORD_WEBHOOK_AVATAR_FROM_DISCORD:-false}
+Experiment_JdbcAccountLinkBackend: "${DISCORD_JDBC_URL}"
+Experiment_JdbcTablePrefix: "${DISCORD_JDBC_PREFIX}"
+Experiment_JdbcUsername: "${DISCORD_JDBC_USERNAME}"
+Experiment_JdbcPassword: "${DISCORD_JDBC_PASSWORD}"
+Experiment_WebhookChatMessageDelivery: ${DISCORD_WEBHOOK_DELIVERY}
+Experiment_WebhookChatMessageUsernameFormat: "${DISCORD_WEBHOOK_USERNAME_FORMAT}"
+Experiment_WebhookChatMessageFormat: "${DISCORD_WEBHOOK_MESSAGE_FORMAT}"
+Experiment_WebhookChatMessageUsernameFromDiscord: ${DISCORD_WEBHOOK_USERNAME_FROM_DISCORD}
+Experiment_WebhookChatMessageAvatarFromDiscord: ${DISCORD_WEBHOOK_AVATAR_FROM_DISCORD}
 Experiment_WebhookChatMessageUsernameFilters: {}
 
 # Embed & webhook image/avatar url format
-AvatarUrl: "${DISCORD_AVATAR_URL:-}"
+AvatarUrl: "${DISCORD_AVATAR_URL}"
 
 # Reserializer
-Experiment_MCDiscordReserializer_ToDiscord: ${DISCORD_RESERIALIZER_TO_DISCORD:-false}
-Experiment_MCDiscordReserializer_ToMinecraft: ${DISCORD_RESERIALIZER_TO_MINECRAFT:-false}
-Experiment_MCDiscordReserializer_InBroadcast: ${DISCORD_RESERIALIZER_IN_BROADCAST:-false}
+Experiment_MCDiscordReserializer_ToDiscord: ${DISCORD_RESERIALIZER_TO_DISCORD}
+Experiment_MCDiscordReserializer_ToMinecraft: ${DISCORD_RESERIALIZER_TO_MINECRAFT}
+Experiment_MCDiscordReserializer_InBroadcast: ${DISCORD_RESERIALIZER_IN_BROADCAST}
 
 # Other
-CancelConsoleCommandIfLoggingFailed: ${DISCORD_CANCEL_CONSOLE_IF_LOGGING_FAILED:-true}
-ForcedLanguage: ${DISCORD_FORCED_LANGUAGE:-none}
-ForceTLSv12: ${DISCORD_FORCE_TLS:-true}
-NoopHostnameVerifier: ${DISCORD_NOOP_HOSTNAME_VERIFIER:-false}
-MaximumAttemptsForSystemDNSBeforeUsingFallbackDNS: ${DISCORD_MAX_DNS_ATTEMPTS:-3}
-TimestampFormat: ${DISCORD_TIMESTAMP_FORMAT:-EEE, d. MMM yyyy HH:mm:ss z}
-DateFormat: ${DISCORD_DATE_FORMAT:-yyyy-MM-dd}
-Timezone: ${DISCORD_TIMEZONE:-default}
-MinecraftMentionSound: ${DISCORD_MINECRAFT_MENTION_SOUND:-true}
+CancelConsoleCommandIfLoggingFailed: ${DISCORD_CANCEL_CONSOLE_IF_LOGGING_FAILED}
+ForcedLanguage: ${DISCORD_FORCED_LANGUAGE}
+ForceTLSv12: ${DISCORD_FORCE_TLS}
+NoopHostnameVerifier: ${DISCORD_NOOP_HOSTNAME_VERIFIER}
+MaximumAttemptsForSystemDNSBeforeUsingFallbackDNS: ${DISCORD_MAX_DNS_ATTEMPTS}
+TimestampFormat: ${DISCORD_TIMESTAMP_FORMAT}
+DateFormat: ${DISCORD_DATE_FORMAT}
+Timezone: ${DISCORD_TIMEZONE}
+MinecraftMentionSound: ${DISCORD_MINECRAFT_MENTION_SOUND}
 
 # Plugin hooks
 DisabledPluginHooks: []
-VentureChatBungee: ${DISCORD_VENTURECHAT_BUNGEE:-false}
-EnablePresenceInformation: ${DISCORD_ENABLE_PRESENCE:-false}
-UseModernPaperChatEvent: ${DISCORD_USE_MODERN_PAPER_CHAT:-false}
+VentureChatBungee: ${DISCORD_VENTURECHAT_BUNGEE}
+EnablePresenceInformation: ${DISCORD_ENABLE_PRESENCE}
+UseModernPaperChatEvent: ${DISCORD_USE_MODERN_PAPER_CHAT}
 
 # Game Information
-DiscordGameStatus: ["${DISCORD_GAME_STATUS:-Minecraft}"]
-DiscordOnlineStatus: ${DISCORD_ONLINE_STATUS:-ONLINE}
-StatusUpdateRateInMinutes: ${DISCORD_STATUS_UPDATE_RATE:-2}
+DiscordGameStatus: ["${DISCORD_GAME_STATUS}"]
+DiscordOnlineStatus: ${DISCORD_ONLINE_STATUS}
+StatusUpdateRateInMinutes: ${DISCORD_STATUS_UPDATE_RATE}
 
 # Chat channel information
-DiscordChatChannelDiscordToMinecraft: ${DISCORD_CHAT_DISCORD_TO_MC:-true}
-DiscordChatChannelMinecraftToDiscord: ${DISCORD_CHAT_MC_TO_DISCORD:-true}
-DiscordChatChannelTruncateLength: ${DISCORD_CHAT_TRUNCATE_LENGTH:-256}
-DiscordChatChannelTranslateMentions: ${DISCORD_CHAT_TRANSLATE_MENTIONS:-true}
+DiscordChatChannelDiscordToMinecraft: ${DISCORD_CHAT_DISCORD_TO_MC}
+DiscordChatChannelMinecraftToDiscord: ${DISCORD_CHAT_MC_TO_DISCORD}
+DiscordChatChannelTruncateLength: ${DISCORD_CHAT_TRUNCATE_LENGTH}
+DiscordChatChannelTranslateMentions: ${DISCORD_CHAT_TRANSLATE_MENTIONS}
 DiscordChatChannelAllowedMentions: [user, channel, emote]
-DiscordChatChannelEmojiBehavior: "${DISCORD_CHAT_EMOJI_BEHAVIOR:-name}"
-DiscordChatChannelEmoteBehavior: "${DISCORD_CHAT_EMOTE_BEHAVIOR:-name}"
-DiscordChatChannelPrefixRequiredToProcessMessage: "${DISCORD_CHAT_PREFIX:-}"
-DiscordChatChannelPrefixActsAsBlacklist: ${DISCORD_CHAT_PREFIX_BLACKLIST:-false}
-DiscordChatChannelRolesAllowedToUseColorCodesInChat: ["${DISCORD_CHAT_COLOR_ROLES:-Admin}"]
-DiscordChatChannelBroadcastDiscordMessagesToConsole: ${DISCORD_CHAT_BROADCAST_TO_CONSOLE:-true}
-DiscordChatChannelRequireLinkedAccount: ${DISCORD_CHAT_REQUIRE_LINKED:-false}
-DiscordChatChannelBlockBots: ${DISCORD_CHAT_BLOCK_BOTS:-true}
-DiscordChatChannelBlockWebhooks: ${DISCORD_CHAT_BLOCK_WEBHOOKS:-true}
+DiscordChatChannelEmojiBehavior: "${DISCORD_CHAT_EMOJI_BEHAVIOR}"
+DiscordChatChannelEmoteBehavior: "${DISCORD_CHAT_EMOTE_BEHAVIOR}"
+DiscordChatChannelPrefixRequiredToProcessMessage: "${DISCORD_CHAT_PREFIX}"
+DiscordChatChannelPrefixActsAsBlacklist: ${DISCORD_CHAT_PREFIX_BLACKLIST}
+DiscordChatChannelRolesAllowedToUseColorCodesInChat: ["${DISCORD_CHAT_COLOR_ROLES}"]
+DiscordChatChannelBroadcastDiscordMessagesToConsole: ${DISCORD_CHAT_BROADCAST_TO_CONSOLE}
+DiscordChatChannelRequireLinkedAccount: ${DISCORD_CHAT_REQUIRE_LINKED}
+DiscordChatChannelBlockBots: ${DISCORD_CHAT_BLOCK_BOTS}
+DiscordChatChannelBlockWebhooks: ${DISCORD_CHAT_BLOCK_WEBHOOKS}
 DiscordChatChannelBlockedIds: ["000000000000000000"]
-DiscordChatChannelBlockedRolesAsWhitelist: ${DISCORD_CHAT_BLOCKED_ROLES_AS_WHITELIST:-false}
+DiscordChatChannelBlockedRolesAsWhitelist: ${DISCORD_CHAT_BLOCKED_ROLES_AS_WHITELIST}
 DiscordChatChannelBlockedRolesIds: ["000000000000000000"]
-DiscordChatChannelRolesSelectionAsWhitelist: ${DISCORD_CHAT_ROLES_AS_WHITELIST:-false}
+DiscordChatChannelRolesSelectionAsWhitelist: ${DISCORD_CHAT_ROLES_AS_WHITELIST}
 DiscordChatChannelRolesSelection: []
 DiscordChatChannelRoleAliases: {}
 
-DiscordInviteLink: "${DISCORD_INVITE_LINK:-Join our Discord!}"
+DiscordInviteLink: "${DISCORD_INVITE_LINK}"
 
 # Console channel information
-DiscordConsoleChannelLogRefreshRateInSeconds: ${DISCORD_CONSOLE_REFRESH_RATE:-5}
-DiscordConsoleChannelUsageLog: "${DISCORD_CONSOLE_LOG_FILE:-Console-%date%.log}"
-DiscordConsoleChannelBlacklistActsAsWhitelist: ${DISCORD_CONSOLE_BLACKLIST_AS_WHITELIST:-false}
+DiscordConsoleChannelLogRefreshRateInSeconds: ${DISCORD_CONSOLE_REFRESH_RATE}
+DiscordConsoleChannelUsageLog: "${DISCORD_CONSOLE_LOG_FILE}"
+DiscordConsoleChannelBlacklistActsAsWhitelist: ${DISCORD_CONSOLE_BLACKLIST_AS_WHITELIST}
 DiscordConsoleChannelBlacklistedCommands: ["?", "op", "deop", "execute"]
 DiscordConsoleChannelFilters: {}
 DiscordConsoleChannelLevels: [info, warn, error]
-DiscordConsoleChannelUseCodeBlocks: ${DISCORD_CONSOLE_USE_CODE_BLOCKS:-true}
-DiscordConsoleChannelBlockBots: ${DISCORD_CONSOLE_BLOCK_BOTS:-false}
+DiscordConsoleChannelUseCodeBlocks: ${DISCORD_CONSOLE_USE_CODE_BLOCKS}
+DiscordConsoleChannelBlockBots: ${DISCORD_CONSOLE_BLOCK_BOTS}
 
 # Chat channel command execute command
-DiscordChatChannelConsoleCommandEnabled: ${DISCORD_CHAT_CONSOLE_COMMANDS_ENABLED:-false}
-DiscordChatChannelConsoleCommandNotifyErrors: ${DISCORD_CHAT_CONSOLE_NOTIFY_ERRORS:-true}
-DiscordChatChannelConsoleCommandPrefix: "${DISCORD_CHAT_CONSOLE_PREFIX:-!c}"
-DiscordChatChannelConsoleCommandRolesAllowed: ["${DISCORD_CHAT_CONSOLE_ROLES:-Admin}"]
+DiscordChatChannelConsoleCommandEnabled: ${DISCORD_CHAT_CONSOLE_COMMANDS_ENABLED}
+DiscordChatChannelConsoleCommandNotifyErrors: ${DISCORD_CHAT_CONSOLE_NOTIFY_ERRORS}
+DiscordChatChannelConsoleCommandPrefix: "${DISCORD_CHAT_CONSOLE_PREFIX}"
+DiscordChatChannelConsoleCommandRolesAllowed: ["${DISCORD_CHAT_CONSOLE_ROLES}"]
 DiscordChatChannelConsoleCommandWhitelist: ["say", "lag", "tps"]
-DiscordChatChannelConsoleCommandWhitelistBypassRoles: ["${DISCORD_CHAT_CONSOLE_BYPASS_ROLES:-Owner}"]
-DiscordChatChannelConsoleCommandWhitelistActsAsBlacklist: ${DISCORD_CHAT_CONSOLE_WHITELIST_AS_BLACKLIST:-false}
-DiscordChatChannelConsoleCommandExpiration: ${DISCORD_CHAT_CONSOLE_EXPIRATION:-0}
-DiscordChatChannelConsoleCommandExpirationDeleteRequest: ${DISCORD_CHAT_CONSOLE_DELETE_REQUEST:-true}
+DiscordChatChannelConsoleCommandWhitelistBypassRoles: ["${DISCORD_CHAT_CONSOLE_BYPASS_ROLES}"]
+DiscordChatChannelConsoleCommandWhitelistActsAsBlacklist: ${DISCORD_CHAT_CONSOLE_WHITELIST_AS_BLACKLIST}
+DiscordChatChannelConsoleCommandExpiration: ${DISCORD_CHAT_CONSOLE_EXPIRATION}
+DiscordChatChannelConsoleCommandExpirationDeleteRequest: ${DISCORD_CHAT_CONSOLE_DELETE_REQUEST}
 
 # Chat channel player list command
-DiscordChatChannelListCommandEnabled: ${DISCORD_LIST_COMMAND_ENABLED:-true}
-DiscordChatChannelListCommandMessage: "${DISCORD_LIST_COMMAND_MESSAGE:-playerlist}"
-DiscordChatChannelListCommandExpiration: ${DISCORD_LIST_COMMAND_EXPIRATION:-10}
-DiscordChatChannelListCommandExpirationDeleteRequest: ${DISCORD_LIST_COMMAND_DELETE_REQUEST:-true}
+DiscordChatChannelListCommandEnabled: ${DISCORD_LIST_COMMAND_ENABLED}
+DiscordChatChannelListCommandMessage: "${DISCORD_LIST_COMMAND_MESSAGE}"
+DiscordChatChannelListCommandExpiration: ${DISCORD_LIST_COMMAND_EXPIRATION}
+DiscordChatChannelListCommandExpirationDeleteRequest: ${DISCORD_LIST_COMMAND_DELETE_REQUEST}
 
 # Chat channel blacklisted phrases & regex
 DiscordChatChannelGameFilters: {}
 DiscordChatChannelDiscordFilters: {}
 
 # Channel topic updater settings
-ChannelTopicUpdaterChannelTopicsAtShutdownEnabled: ${DISCORD_TOPIC_UPDATE_AT_SHUTDOWN:-true}
-ChannelTopicUpdaterRateInMinutes: ${DISCORD_TOPIC_UPDATE_RATE:-10}
+ChannelTopicUpdaterChannelTopicsAtShutdownEnabled: ${DISCORD_TOPIC_UPDATE_AT_SHUTDOWN}
+ChannelTopicUpdaterRateInMinutes: ${DISCORD_TOPIC_UPDATE_RATE}
 
 # Channel Updater
 ChannelUpdater: []
@@ -128,21 +128,21 @@ DiscordCannedResponses: {}
 # Minecraft to Discord account linking
 MinecraftDiscordAccountLinkedConsoleCommands: []
 MinecraftDiscordAccountUnlinkedConsoleCommands: []
-MinecraftDiscordAccountLinkedRoleNameToAddUserTo: "${DISCORD_LINKED_ROLE_ID:-}"
-MinecraftDiscordAccountLinkedAllowRelinkBySendingANewCode: ${DISCORD_ALLOW_RELINK:-false}
-MinecraftDiscordAccountLinkedUsePM: ${DISCORD_LINKED_USE_PM:-true}
-MinecraftDiscordAccountLinkedMessageDeleteSeconds: ${DISCORD_LINKED_DELETE_SECONDS:-0}
+MinecraftDiscordAccountLinkedRoleNameToAddUserTo: "${DISCORD_LINKED_ROLE_ID}"
+MinecraftDiscordAccountLinkedAllowRelinkBySendingANewCode: ${DISCORD_ALLOW_RELINK}
+MinecraftDiscordAccountLinkedUsePM: ${DISCORD_LINKED_USE_PM}
+MinecraftDiscordAccountLinkedMessageDeleteSeconds: ${DISCORD_LINKED_DELETE_SECONDS}
 
 # Server watchdog
-ServerWatchdogEnabled: ${DISCORD_WATCHDOG_ENABLED:-true}
-ServerWatchdogTimeout: ${DISCORD_WATCHDOG_TIMEOUT:-30}
-ServerWatchdogMessageCount: ${DISCORD_WATCHDOG_MESSAGE_COUNT:-3}
+ServerWatchdogEnabled: ${DISCORD_WATCHDOG_ENABLED}
+ServerWatchdogTimeout: ${DISCORD_WATCHDOG_TIMEOUT}
+ServerWatchdogMessageCount: ${DISCORD_WATCHDOG_MESSAGE_COUNT}
 
 # HTTP proxy - leave alone if you don't need it
-ProxyHost: "${DISCORD_PROXY_HOST:-}"
-ProxyPort: ${DISCORD_PROXY_PORT:-0}
-ProxyUser: "${DISCORD_PROXY_USER:-}"
-ProxyPassword: "${DISCORD_PROXY_PASSWORD:-}"
+ProxyHost: "${DISCORD_PROXY_HOST}"
+ProxyPort: ${DISCORD_PROXY_PORT}
+ProxyUser: "${DISCORD_PROXY_USER}"
+ProxyPassword: "${DISCORD_PROXY_PASSWORD}"
 
 # Debug information
 Debug: []

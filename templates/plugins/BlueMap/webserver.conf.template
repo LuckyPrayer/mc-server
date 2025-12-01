@@ -6,16 +6,16 @@
 # With this setting you can disable the integrated web-server.
 # This is useful if you want to only render the map-data for later use, or if you setup your own webserver.
 # Default is enabled
-enabled: ${BLUEMAP_WEBSERVER_ENABLED:-true}
+enabled: ${BLUEMAP_WEBSERVER_ENABLED}
 
 # The webroot that the server will host to the web.
 # Usually this should be set to the same directory like in the webapp.conf!
 # Default is "bluemap/web"
-webroot: "${BLUEMAP_WEBROOT:-bluemap/web}"
+webroot: "${BLUEMAP_WEBROOT}"
 
 # The port that the webserver listens to.
 # Default is 8100
-port: ${BLUEMAP_PORT:-8100}
+port: ${BLUEMAP_PORT}
 
 # Config-section for webserver-activity logging
 log: {
@@ -23,11 +23,11 @@ log: {
   # Comment out to disable the logging completely.
   # Java String formatting syntax can be used to add time, see: https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html
   # Default is no logging
-  file: "${BLUEMAP_WEBSERVER_LOG_FILE:-bluemap/logs/webserver.log}"
+  file: "${BLUEMAP_WEBSERVER_LOG_FILE}"
 
   # Whether the logger should append to an existing file, or overwrite it
   # Default is false
-  append: ${BLUEMAP_WEBSERVER_LOG_APPEND:-false}
+  append: ${BLUEMAP_WEBSERVER_LOG_APPEND}
 
   # The format of the webserver-acivity logs.
   # The syntax is the java String formatting, see: https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html
@@ -40,5 +40,5 @@ log: {
   #  6 - the status-code of the response
   #  7 - the status-message of the response
   # Default is "%1$s \"%3$s %4$s %5$s\" %6$s %7$s"
-  format: "${BLUEMAP_WEBSERVER_LOG_FORMAT:-%1$s \"%3$s %4$s %5$s\" %6$s %7$s}"
+  format: "${BLUEMAP_WEBSERVER_LOG_FORMAT}"
 }

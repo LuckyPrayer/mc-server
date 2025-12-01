@@ -1,11 +1,11 @@
 # Paper Global Configuration - Template
 # Generated from template
-# Environment: ${ENVIRONMENT:-unknown}
+# Environment: ${ENVIRONMENT}
 
 _version: 28
 
 async-chunks:
-  threads: ${ASYNC_CHUNK_THREADS:--1}
+  threads: ${ASYNC_CHUNK_THREADS}
 
 chunk-loading-advanced:
   auto-config-send-distance: true
@@ -13,17 +13,17 @@ chunk-loading-advanced:
   player-max-concurrent-chunk-loads: 0
 
 chunk-loading-basic:
-  player-max-chunk-generate-rate: ${MAX_CHUNK_GENERATE_RATE:--1.0}
-  player-max-chunk-load-rate: ${MAX_CHUNK_LOAD_RATE:-100.0}
-  player-max-chunk-send-rate: ${MAX_CHUNK_SEND_RATE:-75.0}
+  player-max-chunk-generate-rate: ${MAX_CHUNK_GENERATE_RATE}
+  player-max-chunk-load-rate: ${MAX_CHUNK_LOAD_RATE}
+  player-max-chunk-send-rate: ${MAX_CHUNK_SEND_RATE}
 
 chunk-system:
   gen-parallelism: default
-  io-threads: ${CHUNK_IO_THREADS:--1}
-  worker-threads: ${CHUNK_WORKER_THREADS:--1}
+  io-threads: ${CHUNK_IO_THREADS}
+  worker-threads: ${CHUNK_WORKER_THREADS}
 
 collisions:
-  enable-player-collisions: ${ENABLE_PLAYER_COLLISIONS:-true}
+  enable-player-collisions: ${ENABLE_PLAYER_COLLISIONS}
   send-full-pos-for-hard-colliding-entities: true
 
 commands:
@@ -38,49 +38,49 @@ console:
 
 item-validation:
   book:
-    author: ${BOOK_AUTHOR_MAX_LENGTH:-8192}
-    page: ${BOOK_PAGE_MAX_LENGTH:-16384}
-    title: ${BOOK_TITLE_MAX_LENGTH:-8192}
+    author: ${BOOK_AUTHOR_MAX_LENGTH}
+    page: ${BOOK_PAGE_MAX_LENGTH}
+    title: ${BOOK_TITLE_MAX_LENGTH}
   book-size:
-    page-max: ${BOOK_PAGE_MAX:-2560}
-    total-multiplier: ${BOOK_TOTAL_MULTIPLIER:-0.98}
-  display-name: ${DISPLAY_NAME_MAX_LENGTH:-8192}
-  lore-line: ${LORE_LINE_MAX_LENGTH:-8192}
+    page-max: ${BOOK_PAGE_MAX}
+    total-multiplier: ${BOOK_TOTAL_MULTIPLIER}
+  display-name: ${DISPLAY_NAME_MAX_LENGTH}
+  lore-line: ${LORE_LINE_MAX_LENGTH}
   resolve-selectors-in-books: false
 
 logging:
-  deobfuscate-stacktraces: ${DEOBFUSCATE_STACKTRACES:-true}
-  log-player-ip-addresses: ${LOG_PLAYER_IPS:-true}
+  deobfuscate-stacktraces: ${DEOBFUSCATE_STACKTRACES}
+  log-player-ip-addresses: ${LOG_PLAYER_IPS}
   use-rgb-for-named-text-colors: true
 
 messages:
   kick:
     authentication-servers-down: ''
     connection-throttle: Connection throttled! Please wait before reconnecting.
-    flying-player: ${KICK_FLYING_MESSAGE:-Flying is not enabled on this server}
-    flying-vehicle: ${KICK_FLYING_VEHICLE_MESSAGE:-Flying is not enabled on this server}
-  no-permission: ${NO_PERMISSION_MESSAGE:-§cI'm sorry, but you do not have permission to perform this command.}
+    flying-player: ${KICK_FLYING_MESSAGE}
+    flying-vehicle: ${KICK_FLYING_VEHICLE_MESSAGE}
+  no-permission: ${NO_PERMISSION_MESSAGE}
   use-display-name-in-quit-message: false
 
 misc:
   chat-threads:
-    chat-executor-core-size: ${CHAT_EXECUTOR_CORE_SIZE:--1}
-    chat-executor-max-size: ${CHAT_EXECUTOR_MAX_SIZE:--1}
+    chat-executor-core-size: ${CHAT_EXECUTOR_CORE_SIZE}
+    chat-executor-max-size: ${CHAT_EXECUTOR_MAX_SIZE}
   fix-entity-position-desync: true
-  lag-compensate-block-breaking: ${LAG_COMPENSATE_BLOCK_BREAKING:-true}
+  lag-compensate-block-breaking: ${LAG_COMPENSATE_BLOCK_BREAKING}
   load-permissions-yml-before-plugins: true
-  max-joins-per-tick: ${MAX_JOINS_PER_TICK:-5}
-  region-file-cache-size: ${REGION_FILE_CACHE_SIZE:-256}
+  max-joins-per-tick: ${MAX_JOINS_PER_TICK}
+  region-file-cache-size: ${REGION_FILE_CACHE_SIZE}
   strict-advancement-dimension-check: false
   use-alternative-luck-formula: false
   use-dimension-type-for-custom-spawners: false
 
 packet-limiter:
   all-packets:
-    action: ${PACKET_LIMITER_ACTION:-KICK}
-    interval: ${PACKET_LIMITER_INTERVAL:-7.0}
-    max-packet-rate: ${PACKET_LIMITER_MAX_RATE:-500.0}
-  kick-message: ${PACKET_SPAM_KICK_MESSAGE:-§cSent too many packets}
+    action: ${PACKET_LIMITER_ACTION}
+    interval: ${PACKET_LIMITER_INTERVAL}
+    max-packet-rate: ${PACKET_LIMITER_MAX_RATE}
+  kick-message: ${PACKET_SPAM_KICK_MESSAGE}
   overrides:
     ServerboundPlaceRecipePacket:
       action: DROP
@@ -88,39 +88,39 @@ packet-limiter:
       max-packet-rate: 5.0
 
 player-auto-save:
-  max-per-tick: ${PLAYER_AUTO_SAVE_MAX_PER_TICK:--1}
-  rate: ${PLAYER_AUTO_SAVE_RATE:--1}
+  max-per-tick: ${PLAYER_AUTO_SAVE_MAX_PER_TICK}
+  rate: ${PLAYER_AUTO_SAVE_RATE}
 
 proxies:
   bungee-cord:
-    online-mode: ${BUNGEECORD_ONLINE_MODE:-true}
+    online-mode: ${BUNGEECORD_ONLINE_MODE}
   proxy-protocol: false
   velocity:
-    enabled: ${VELOCITY_ENABLED:-false}
-    online-mode: ${VELOCITY_ONLINE_MODE:-false}
-    secret: '${VELOCITY_SECRET:-}'
+    enabled: ${VELOCITY_ENABLED}
+    online-mode: ${VELOCITY_ONLINE_MODE}
+    secret: '${VELOCITY_SECRET}'
 
 scoreboards:
   save-empty-scoreboard-teams: false
   track-plugin-scoreboards: false
 
 spam-limiter:
-  incoming-packet-threshold: ${SPAM_LIMITER_THRESHOLD:-300}
-  recipe-spam-increment: ${SPAM_LIMITER_RECIPE_INCREMENT:-1}
-  tab-spam-increment: ${SPAM_LIMITER_TAB_INCREMENT:-1}
-  tab-spam-limit: ${SPAM_LIMITER_TAB_LIMIT:-500}
+  incoming-packet-threshold: ${SPAM_LIMITER_THRESHOLD}
+  recipe-spam-increment: ${SPAM_LIMITER_RECIPE_INCREMENT}
+  tab-spam-increment: ${SPAM_LIMITER_TAB_INCREMENT}
+  tab-spam-limit: ${SPAM_LIMITER_TAB_LIMIT}
 
 timings:
-  enabled: ${TIMINGS_ENABLED:-true}
+  enabled: ${TIMINGS_ENABLED}
   hidden-config-entries:
   - database
   - proxies.velocity.secret
-  history-interval: ${TIMINGS_HISTORY_INTERVAL:-300}
-  history-length: ${TIMINGS_HISTORY_LENGTH:-3600}
-  server-name: ${SERVER_NAME:-Unknown Server}
+  history-interval: ${TIMINGS_HISTORY_INTERVAL}
+  history-length: ${TIMINGS_HISTORY_LENGTH}
+  server-name: ${SERVER_NAME}
   server-name-privacy: false
   url: https://timings.aikar.co
-  verbose: ${TIMINGS_VERBOSE:-true}
+  verbose: ${TIMINGS_VERBOSE}
 
 unsupported-settings:
   allow-headless-pistons: false
@@ -129,5 +129,5 @@ unsupported-settings:
   perform-username-validation: true
 
 watchdog:
-  early-warning-delay: ${WATCHDOG_EARLY_WARNING:-10000}
-  early-warning-every: ${WATCHDOG_EARLY_WARNING_EVERY:-5000}
+  early-warning-delay: ${WATCHDOG_EARLY_WARNING}
+  early-warning-every: ${WATCHDOG_EARLY_WARNING_EVERY}

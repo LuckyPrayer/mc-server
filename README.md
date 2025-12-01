@@ -10,6 +10,8 @@ A Docker-based Minecraft server setup with easy management of datapacks, plugins
 - 💾 Persistent world data storage
 - ⚙️ Configurable server settings via docker-compose
 - 🚀 Simple start/stop/restart commands
+- 🎯 **Smart configuration regeneration** - automatically detects environment variable changes
+- 🔧 **Template-based configuration** - manage configs via environment variables
 
 ## Prerequisites
 
@@ -42,6 +44,7 @@ mc-server/
 ├── docs/                       # Documentation
 │   ├── TEMPLATING_GUIDE.md     # Complete templating documentation
 │   ├── TEMPLATES_QUICKREF.md   # Quick reference guide
+│   ├── CONFIG_REGENERATION.md  # Smart config regeneration guide
 │   ├── IMPROVEMENTS.md         # Changelog of improvements
 │   ├── DOCKER_PUBLISHING.md    # Docker registry publishing guide
 │   └── HARBOR_SETUP.md         # Harbor registry setup guide
@@ -205,7 +208,21 @@ docker-compose -f docker-compose.dev.yml up -d
 ./manage.sh generate-configs
 ```
 
-**📖 Complete Guide:** [TEMPLATING_GUIDE.md](TEMPLATING_GUIDE.md)
+**Smart Regeneration:**
+
+The container automatically detects when environment variables change and regenerates only the affected configuration files.
+
+```bash
+# Normal restart - configs only regenerate if environment variables changed
+docker-compose restart minecraft-server
+
+# Force regeneration - regenerate all configs regardless of changes
+MINECRAFT_FORCE_CONFIG_REGEN=true docker-compose restart minecraft-server
+```
+
+**📖 Complete Guides:** 
+- [TEMPLATING_GUIDE.md](docs/TEMPLATING_GUIDE.md) - Template syntax and variables
+- [CONFIG_REGENERATION.md](docs/CONFIG_REGENERATION.md) - Smart regeneration details
 
 ## Server Types
 
