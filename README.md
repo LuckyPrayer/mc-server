@@ -265,6 +265,7 @@ Key environment variables you can customize in `docker-compose.yml`:
 Default ports:
 - `25565` - Minecraft server (TCP)
 - `25575` - RCON (TCP)
+- `8100`  - BlueMap
 
 To change the Minecraft port:
 
