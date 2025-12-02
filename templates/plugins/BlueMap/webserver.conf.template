@@ -40,5 +40,5 @@ log: {
   #  6 - the status-code of the response
   #  7 - the status-message of the response
   # Default is "%1$s \"%3$s %4$s %5$s\" %6$s %7$s"
-  format: "${BLUEMAP_WEBSERVER_LOG_FORMAT}"
+  # format: "%1$s \"%3$s %4$s %5$s\" %6$s %7$s"
 }
