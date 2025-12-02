@@ -28,6 +28,9 @@ COPY --chown=minecraft:minecraft config/ /config/
 # Copy templates for runtime configuration generation (optional)
 COPY --chown=minecraft:minecraft templates/ /templates/ 2>/dev/null || true
 
+# Copy default environment variable files (optional)
+COPY --chown=minecraft:minecraft defaults/ /defaults/ 2>/dev/null || true
+
 # Copy entrypoint script for template processing (optional)
 COPY --chown=minecraft:minecraft scripts/entrypoint.sh /entrypoint.sh 2>/dev/null || true
 RUN if [ -f /entrypoint.sh ]; then chmod +x /entrypoint.sh; fi
