@@ -120,16 +120,23 @@ docker run -d \
 
 ### Templates (in container image)
 - `/templates/server/*.template` - Server configuration templates
-- `/templates/plugins/*/` *.template` - Plugin configuration templates
+- `/templates/plugins/*/*.template` - Plugin configuration templates
 
-### Generated Files (temporary)
-- `/tmp/minecraft-configs/server/` - Processed server configs
-- `/tmp/minecraft-configs/plugins/` - Processed plugin configs
+### Generated Files (processed by entrypoint)
+- `/config/` - Server properties, bukkit.yml, spigot.yml, paper configs
+- `/config/.env_snapshot` - Environment variable snapshot (temporary)
+- `/tmp/minecraft-plugin-configs/` - Processed plugin configs (temporary)
 
 ### Final Location (persistent)
-- `/data/` - Server properties, bukkit.yml, spigot.yml, paper configs
-- `/data/plugins/` - Plugin configurations
-- `/data/.env_snapshot` - Environment variable snapshot for change detection
+- `/data/` - Server properties, bukkit.yml, spigot.yml, paper configs (copied by base image from `/config`)
+- `/data/plugins/` - Plugin configurations (copied by post-init script from `/tmp/minecraft-plugin-configs`)
+- `/data/.env_snapshot` - Environment variable snapshot for change detection (copied by base image from `/config`)
+
+**Note**: Uses hybrid approach:
+- Server configs → `/config` → Base image copies to `/data`
+- Plugin configs → `/tmp/minecraft-plugin-configs` → Post-init script copies to `/data/plugins`
+
+See [HYBRID_CONFIG_COPY.md](HYBRID_CONFIG_COPY.md) for details.
 
 ---
 
@@ -142,8 +149,8 @@ docker run -d \
 3. Script loads previous environment snapshot from `/data/.env_snapshot`
 4. Script compares current environment with saved snapshot
 5. **If no changes**: Skip template processing, use existing configs
-6. **If changes detected**: Process templates and copy to `/data`
-7. Save new environment snapshot
+6. **If changes detected**: Process templates to `/config`, save snapshot to `/config/.env_snapshot`
+7. Base image copies `/config` → `/data` (includes configs and snapshot)
 8. Start Minecraft server
 
 ### First Run / Fresh Data Volume
@@ -151,9 +158,9 @@ docker run -d \
 1. Container starts with environment variables
 2. Script sets default values for unset variables
 3. No snapshot found in `/data/.env_snapshot`
-4. Process all templates
-5. Copy configs to `/data`
-6. Save environment snapshot
+4. Process all templates to `/config`
+5. Save snapshot to `/config/.env_snapshot`
+6. Base image copies `/config` → `/data`
 7. Start Minecraft server
 
 ### Force Regeneration
@@ -161,9 +168,9 @@ docker run -d \
 1. Container starts with `MINECRAFT_FORCE_CONFIG_REGEN=true`
 2. Script sets default values for unset variables
 3. Script detects force flag, skips environment comparison
-4. Process all templates (overwrites existing)
-5. Copy configs to `/data`
-6. Save new environment snapshot
+4. Process all templates to `/config` (will overwrite in /data)
+5. Save snapshot to `/config/.env_snapshot`
+6. Base image copies `/config` → `/data`
 7. Start Minecraft server
 
 ---

@@ -11,7 +11,9 @@ echo ""
 
 # Configuration paths
 ENV_SNAPSHOT_FILE="/data/.env_snapshot"
-TEMP_DIR="/tmp/minecraft-configs"
+# Process templates directly to /config so base image can copy them to /data
+# This ensures configs are ready before plugins initialize
+CONFIG_DIR="/config"
 
 # Set default values for environment variables
 # This allows templates to use simple ${VAR} syntax instead of ${VAR:-default}
@@ -116,6 +118,11 @@ export GEYSER_LEGACY_PING_PASSTHROUGH="${GEYSER_LEGACY_PING_PASSTHROUGH:-false}"
 export GEYSER_PING_INTERVAL="${GEYSER_PING_INTERVAL:-3}"
 export GEYSER_FORWARD_PLAYER_PING="${GEYSER_FORWARD_PLAYER_PING:-false}"
 
+# Server whitelist defaults (disabled by default for easier access)
+export WHITELIST_ENABLED="${WHITELIST_ENABLED:-false}"
+export ENFORCE_WHITELIST="${ENFORCE_WHITELIST:-false}"
+export WHITELIST_MESSAGE="${WHITELIST_MESSAGE:-You are not whitelisted on this server!}"
+
 echo "✓ Default values set"
 echo ""
 
@@ -189,8 +196,8 @@ process_template() {
     fi
 }
 
-# Create temporary directory for processed configs
-mkdir -p "$TEMP_DIR"
+# Create config directory if it doesn't exist
+mkdir -p "$CONFIG_DIR"
 
 # Check if we need to process templates
 SHOULD_PROCESS=false
@@ -207,38 +214,46 @@ if [ "$SHOULD_PROCESS" = "true" ]; then
     echo "Processing templates..."
     echo ""
     
-    # Process server configuration templates
+    # Process server configuration templates to /config (base image will copy)
     if [ -d "/templates/server" ]; then
-        echo "Processing server configuration templates..."
+        echo "Processing server configuration templates to $CONFIG_DIR..."
         while IFS= read -r -d '' template_file; do
             rel_path="${template_file#/templates/server/}"
-            output_file="$TEMP_DIR/server/${rel_path%.template}"
+            output_file="$CONFIG_DIR/${rel_path%.template}"
             process_template "$template_file" "$output_file"
         done < <(find /templates/server -name "*.template" -type f -print0)
+        echo "  → Server configs will be copied by base image to /data"
         echo ""
     fi
     
-    # Process plugin configuration templates
+    # Process plugin configuration templates to temporary location
+    # We'll copy these directly to /data/plugins after base image initializes /data
+    PLUGIN_TEMP_DIR="/tmp/minecraft-plugin-configs"
+    mkdir -p "$PLUGIN_TEMP_DIR"
+    
     if [ -d "/templates/plugins" ]; then
-        echo "Processing plugin configuration templates..."
+        echo "Processing plugin configuration templates to $PLUGIN_TEMP_DIR..."
         while IFS= read -r -d '' template_file; do
             rel_path="${template_file#/templates/plugins/}"
-            output_file="$TEMP_DIR/plugins/${rel_path%.template}"
+            output_file="$PLUGIN_TEMP_DIR/${rel_path%.template}"
             process_template "$template_file" "$output_file"
         done < <(find /templates/plugins -name "*.template" -type f -print0)
+        echo "  → Plugin configs will be copied directly to /data/plugins"
         echo ""
+        
+        # Set flag to copy plugin configs after /data is initialized
+        export MINECRAFT_PLUGIN_CONFIGS_DIR="$PLUGIN_TEMP_DIR"
     fi
+    
+    # Save environment snapshot to /config (base image will copy to /data)
+    echo "Saving environment snapshot to $CONFIG_DIR/.env_snapshot"
+    get_env_snapshot > "$CONFIG_DIR/.env_snapshot"
     
     echo "✓ Template processing complete!"
     echo ""
-    
-    # Set an environment variable to tell us to copy configs after /data is ready
-    export MINECRAFT_CONFIGS_TEMP="$TEMP_DIR"
-    export MINECRAFT_CONFIGS_GENERATED="true"
 else
     echo "✓ Using existing configurations"
     echo ""
-    export MINECRAFT_CONFIGS_GENERATED="false"
 fi
 
 echo "======================================"
@@ -246,56 +261,74 @@ echo "Starting Minecraft Server..."
 echo "======================================"
 echo ""
 
-# Create a wrapper script that will copy configs after /data is initialized
-cat > /tmp/post-init.sh << 'WRAPPER_EOF'
+# Create a wrapper script to copy plugin configs after /data is initialized
+if [ -n "$MINECRAFT_PLUGIN_CONFIGS_DIR" ] && [ -d "$MINECRAFT_PLUGIN_CONFIGS_DIR" ]; then
+    echo "Creating post-init script to copy plugin configs..."
+    
+    cat > /tmp/copy-plugin-configs.sh << 'PLUGIN_COPY_EOF'
 #!/bin/bash
-# This script runs after /start initializes /data
+# This script runs after base image initializes /data
+# It copies plugin configs directly to /data/plugins
 
-# Wait a moment for /data to be fully initialized
-sleep 2
-
-# Only copy configs if we generated new ones
-if [ "$MINECRAFT_CONFIGS_GENERATED" = "true" ] && [ -n "$MINECRAFT_CONFIGS_TEMP" ] && [ -d "$MINECRAFT_CONFIGS_TEMP" ]; then
+if [ -n "$MINECRAFT_PLUGIN_CONFIGS_DIR" ] && [ -d "$MINECRAFT_PLUGIN_CONFIGS_DIR" ]; then
     echo ""
     echo "======================================"
-    echo "Copying processed configurations..."
+    echo "Copying Plugin Configurations"
     echo "======================================"
+    echo "Source: $MINECRAFT_PLUGIN_CONFIGS_DIR"
+    echo "Target: /data/plugins"
+    echo ""
     
-    # Copy server configs
-    if [ -d "$MINECRAFT_CONFIGS_TEMP/server" ]; then
-        echo "Copying server configurations..."
-        cp -rv "$MINECRAFT_CONFIGS_TEMP/server/"* /data/ 2>/dev/null || true
-    fi
+    # Wait a moment for /data to be fully initialized by base image
+    sleep 2
     
-    # Copy plugin configs
-    if [ -d "$MINECRAFT_CONFIGS_TEMP/plugins" ]; then
+    # Ensure /data/plugins exists
+    mkdir -p /data/plugins
+    
+    # Copy plugin configs, preserving directory structure
+    if [ "$(ls -A "$MINECRAFT_PLUGIN_CONFIGS_DIR" 2>/dev/null)" ]; then
         echo "Copying plugin configurations..."
-        mkdir -p /data/plugins
-        cp -rv "$MINECRAFT_CONFIGS_TEMP/plugins/"* /data/plugins/ 2>/dev/null || true
+        cp -rfv "$MINECRAFT_PLUGIN_CONFIGS_DIR"/* /data/plugins/
+        
+        if [ $? -eq 0 ]; then
+            echo ""
+            echo "✓ Plugin configurations copied successfully!"
+            echo ""
+            
+            # List what was copied
+            echo "Plugin configs in /data/plugins:"
+            find /data/plugins -maxdepth 2 -name "*.yml" -o -name "*.yaml" -o -name "*.conf" -o -name "*.properties" 2>/dev/null | head -20
+            echo ""
+        else
+            echo "✗ Failed to copy some plugin configurations"
+            echo ""
+        fi
+    else
+        echo "No plugin configurations to copy"
+        echo ""
     fi
-    
-    echo "✓ Configuration copy complete!"
-    echo ""
-    
-    # Save environment snapshot after successful copy
-    ENV_SNAPSHOT_FILE="/data/.env_snapshot"
-    env | grep -E '^(DISCORD_|GEYSER_|FLOODGATE_|BLUEMAP_|MINECRAFT_|SERVER_|LEVEL_|RCON_|GAMEMODE|DIFFICULTY|PVP|ONLINE_MODE|VIEW_DISTANCE|SIMULATION_DISTANCE|MAX_PLAYERS|MOTD|ENVIRONMENT|DEBUG|BUNGEECORD|WHITELIST|ALLOW_|ENABLE_|SPAWN_|HARDCORE)' | sort > "$ENV_SNAPSHOT_FILE"
-    echo "✓ Environment snapshot saved"
-    echo ""
 else
-    echo ""
-    echo "======================================"
-    echo "Skipping configuration copy"
-    echo "======================================"
-    echo "Using existing configurations from /data"
+    echo "No plugin configurations to copy (MINECRAFT_PLUGIN_CONFIGS_DIR not set)"
+fi
+PLUGIN_COPY_EOF
+
+    chmod +x /tmp/copy-plugin-configs.sh
+    export CFG_SCRIPT_FILES="/tmp/copy-plugin-configs.sh"
+    
+    echo "✓ Post-init script created"
     echo ""
 fi
-WRAPPER_EOF
 
-chmod +x /tmp/post-init.sh
-
-# Set environment variable to run our post-init script
-export CFG_SCRIPT_FILES="/tmp/post-init.sh"
+echo "Base image will now:"
+echo "  1. Copy server configs from $CONFIG_DIR to /data"
+echo "  2. Initialize server files"
+if [ -n "$MINECRAFT_PLUGIN_CONFIGS_DIR" ]; then
+    echo "  3. Run post-init script to copy plugin configs to /data/plugins"
+    echo "  4. Start Minecraft server"
+else
+    echo "  3. Start Minecraft server"
+fi
+echo ""
 
 # Execute the original entrypoint script from the base image
 exec /start
