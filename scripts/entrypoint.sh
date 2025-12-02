@@ -44,6 +44,8 @@ if [ -d "/templates/plugins" ]; then
         process_template "$tmpl" "$dest"
         echo "  Generated: ${rel%.template}"
     done
+    # Fix ownership of generated plugin configs
+    chown -R minecraft:minecraft /data/plugins/
 fi
 
 echo "✓ All templates processed!"

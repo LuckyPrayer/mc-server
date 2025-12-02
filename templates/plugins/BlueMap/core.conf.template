@@ -33,14 +33,8 @@ scan-for-mod-resources: ${BLUEMAP_SCAN_MOD_RESOURCES}
 metrics: ${BLUEMAP_METRICS}
 
 # Config-section for debug-logging
-log: {
-  # The file where the debug-log will be written to.
-  # Comment out to disable debug-logging completely.
-  # Java String formatting syntax can be used to add time, see: https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html
-  # Default is no logging
-  # file: "${BLUEMAP_LOG_FILE}"
-
-  # Whether the logger should append to an existing file, or overwrite it
-  # Default is false
-  append: ${BLUEMAP_LOG_APPEND}
-}
+# Disabled due to BlueMap v5.13 null pointer issue
+# log: {
+#   file: "/data/logs/bluemap/debug.log"
+#   append: false
+# }
